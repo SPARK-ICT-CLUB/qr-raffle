@@ -1,840 +1,721 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#d9efff">
-  <title>Lucky Reveal | Organization Raffle</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#dbeafe">
+<title>Lucky Reveal | SPARK ICT CLUB</title>
 
-  <style>
-    .organization-logo {
-  display: block;
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-  margin: 0 auto 12px;
-    }
-    
-    :root {
-      --blue: #5da9e9;
-      --deep-blue: #287fb5;
-      --light-blue: #e5f4ff;
-      --lavender: #e9e4ff;
-      --purple: #8b7ee8;
-      --white: #ffffff;
-      --text: #29445e;
-      --muted: #657b91;
-      --success: #21865b;
-    }
+<style>
+:root {
+  --blue: #4388f5;
+  --purple: #8865df;
+  --text: #243653;
+  --muted: #72819a;
+  --win: #188650;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    html {
-      min-height: 100%;
-      -webkit-text-size-adjust: 100%;
-    }
+html {
+  min-height: 100%;
+}
 
-    body {
-      min-height: 100vh;
-      min-height: 100dvh;
-      padding: 22px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow-x: hidden;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 15% 15%, #ffffff 0, transparent 28%),
-        radial-gradient(circle at 85% 80%, #ffffff 0, transparent 25%),
-        linear-gradient(135deg, #d9efff, #e9e4ff 55%, #d9f4ff);
-    }
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% 10%, #fff, transparent 30%),
+    radial-gradient(circle at 90% 90%, #d9ccff, transparent 35%),
+    linear-gradient(145deg, #d8efff, #eae5ff, #f9eaff);
+  overflow-x: hidden;
+}
 
-    button {
-      font: inherit;
-      -webkit-tap-highlight-color: transparent;
-    }
+button {
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
 
-    .page {
-      width: 100%;
-      max-width: 460px;
-      position: relative;
-      z-index: 1;
-    }
+.stars {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
 
-    .card {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      padding: 30px 22px 24px;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      border-radius: 28px;
-      box-shadow: 0 18px 50px rgba(66, 110, 160, 0.17);
-      animation: cardEnter 0.7s ease both;
-    }
+.star {
+  position: absolute;
+  color: white;
+  animation: twinkle 2.4s ease-in-out infinite alternate;
+}
 
-    .card::before,
-    .card::after {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      width: 170px;
-      height: 170px;
-      border-radius: 50%;
-      filter: blur(2px);
-      opacity: 0.55;
-      pointer-events: none;
-    }
+.star:nth-child(1) {
+  top: 10%;
+  left: 8%;
+  font-size: 25px;
+}
 
-    .card::before {
-      top: -90px;
-      left: -65px;
-      background: #b9e3ff;
-    }
+.star:nth-child(2) {
+  top: 19%;
+  right: 10%;
+  animation-delay: .5s;
+}
 
-    .card::after {
-      right: -80px;
-      bottom: -95px;
-      background: #d8cfff;
-    }
+.star:nth-child(3) {
+  bottom: 20%;
+  left: 7%;
+  animation-delay: 1s;
+}
 
-    .brand-mark {
-      width: 74px;
-      height: 74px;
-      margin: 0 auto 14px;
-      display: grid;
-      place-items: center;
-      border-radius: 24px;
-      background: linear-gradient(135deg, #d6efff, #e7ddff);
-      font-size: 36px;
-      box-shadow: 0 7px 18px rgba(91, 144, 203, 0.13);
-      animation: float 3s ease-in-out infinite;
-    }
+.star:nth-child(4) {
+  bottom: 9%;
+  right: 12%;
+  font-size: 28px;
+}
 
-    .eyebrow {
-      margin-bottom: 9px;
-      color: var(--deep-blue);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-    }
+@keyframes twinkle {
+  from { opacity: .3; transform: scale(.8) rotate(0); }
+  to { opacity: 1; transform: scale(1.2) rotate(25deg); }
+}
 
-    h1 {
-      margin-bottom: 11px;
-      font-size: clamp(27px, 7vw, 36px);
-      line-height: 1.13;
-      letter-spacing: -1px;
-      overflow-wrap: anywhere;
-    }
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 390px;
+  padding: 20px 20px 16px;
+  text-align: center;
+  border: 1px solid #ffffffd9;
+  border-radius: 28px;
+  background: #ffffffed;
+  box-shadow: 0 24px 70px #5b72b526;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: enter .7s ease-out;
+}
 
-    .subtitle {
-      max-width: 330px;
-      margin: 0 auto;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.65;
-    }
+@keyframes enter {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-    .steps {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin: 22px 0;
-    }
+.brand {
+  margin-bottom: 8px;
+  color: #617aa7;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
 
-    .step {
-      flex: 1;
-      max-width: 110px;
-      padding: 10px 5px;
-      border: 1px solid #e1eafa;
-      border-radius: 13px;
-      background: #f7fbff;
-      color: #58728e;
-      font-size: 10px;
-      font-weight: 700;
-      line-height: 1.5;
-    }
+.label {
+  display: inline-block;
+  padding: 7px 12px;
+  border: 1px solid #dce8ff;
+  border-radius: 50px;
+  background: #edf4ff;
+  color: #5077c7;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
 
-    .step span {
-      display: block;
-      margin-bottom: 3px;
-      font-size: 18px;
-    }
+.hero {
+  width: 94px;
+  height: 94px;
+  margin: 14px auto 10px;
+  display: grid;
+  place-items: center;
+  border-radius: 28px;
+  background: linear-gradient(145deg, #e5f5ff, #eee5ff);
+  box-shadow: 0 12px 25px #8b9de51c;
+  font-size: 49px;
+  animation: float 3s ease-in-out infinite;
+}
 
-    .reveal-area {
-      position: relative;
-      margin: 18px 0 16px;
-      padding: 21px 14px;
-      border: 1px dashed #b8d7f4;
-      border-radius: 22px;
-      background: linear-gradient(145deg, #f0f9ff, #f7f3ff);
-    }
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+}
 
-    .gift-icon {
-      margin-bottom: 8px;
-      font-size: 43px;
-      animation: float 2.5s ease-in-out infinite;
-    }
+h1 {
+  margin: 8px 0;
+  font-size: clamp(29px, 8vw, 36px);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -1px;
+}
 
-    .reveal-title {
-      margin-bottom: 7px;
-      font-size: 18px;
-      font-weight: 800;
-    }
+.gradient {
+  color: #4388f5;
+  background: linear-gradient(100deg, #347be8, #9164df);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    .reveal-description {
-      max-width: 280px;
-      margin: 0 auto;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
+.subtitle {
+  max-width: 290px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
 
-    .reveal-button {
-      width: 100%;
-      min-height: 56px;
-      margin-top: 19px;
-      padding: 15px 18px;
-      border: 0;
-      border-radius: 16px;
-      color: white;
-      background: linear-gradient(135deg, #368ed0, #8276df);
-      box-shadow: 0 8px 20px rgba(82, 126, 209, 0.3);
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
-      animation: pulse 2.2s infinite;
-    }
+.main-button {
+  width: 100%;
+  min-height: 58px;
+  margin-top: 20px;
+  padding: 16px;
+  border: 0;
+  border-radius: 17px;
+  background: linear-gradient(110deg, #448cf6, #7168eb);
+  color: white;
+  box-shadow: 0 8px 22px #587be745;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .7px;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  animation: pulse 2.5s infinite;
+}
 
-    .reveal-button:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 11px 25px rgba(82, 126, 209, 0.36);
-    }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 8px 20px #587be745; }
+  50% { box-shadow: 0 8px 30px #587be780; }
+}
 
-    .reveal-button:active:not(:disabled) {
-      transform: scale(0.98);
-    }
+.main-button:active {
+  transform: scale(.97);
+}
 
-    .reveal-button:focus-visible,
-    .sound-button:focus-visible,
-    .reset-button:focus-visible {
-      outline: 3px solid #2868a6;
-      outline-offset: 4px;
-    }
+.main-button:disabled {
+  opacity: .65;
+  cursor: not-allowed;
+}
 
-    .reveal-button:disabled {
-      cursor: not-allowed;
-      opacity: 0.72;
-      animation: none;
-    }
+.sound-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
 
-    .result {
-      display: none;
-      margin-top: 21px;
-      padding: 22px 15px;
-      border: 1px solid #e0e9f6;
-      border-radius: 20px;
-      background: white;
-      animation: resultEnter 0.5s ease both;
-    }
+.sound-button {
+  padding: 7px 12px;
+  border: 1px solid #e4eaff;
+  border-radius: 50px;
+  background: #fff;
+  color: #657596;
+  font-size: 11px;
+  cursor: pointer;
+}
 
-    .result.show {
-      display: block;
-    }
+.notice {
+  margin-top: 10px;
+  color: #8b97ab;
+  font-size: 10px;
+  line-height: 1.5;
+}
 
-    .result-icon {
-      margin-bottom: 9px;
-      font-size: 49px;
-    }
+.footer {
+  margin-top: 14px;
+  padding-top: 11px;
+  border-top: 1px solid #e8edf5;
+  color: #96a1b3;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
 
-    .result h2 {
-      margin-bottom: 10px;
-      font-size: clamp(25px, 7vw, 32px);
-      line-height: 1.15;
-      overflow-wrap: anywhere;
-    }
+.hidden {
+  display: none !important;
+}
 
-    .result p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.65;
-    }
+.result {
+  margin-top: 12px;
+  padding: 18px 12px;
+  border: 1px solid #e5eaff;
+  border-radius: 22px;
+  background: #f8faff;
+}
 
-    .result.win {
-      border-color: #bdebd4;
-      background: linear-gradient(145deg, #f0fff7, #f4f8ff);
-    }
+.result-icon {
+  margin-bottom: 8px;
+  font-size: 54px;
+}
 
-    .result.win h2 {
-      color: var(--success);
-    }
+.result h2 {
+  margin-bottom: 10px;
+  font-size: 25px;
+  line-height: 1.2;
+}
 
-    .result.lose {
-      background: linear-gradient(145deg, #f7f9ff, #f9f5ff);
-    }
+.result .message {
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
 
-    .result.lose h2 {
-      color: #7267bc;
-    }
+.result .description {
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
 
-    .result-note {
-      margin-top: 13px;
-      padding: 11px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.8);
-      color: #46647e;
-      font-size: 12px;
-      line-height: 1.6;
-    }
+.win {
+  border-color: #bdebd0;
+  background: linear-gradient(150deg, #e8fff0, #f6fff9);
+}
 
-    .sound-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      margin-top: 16px;
-      padding: 9px 13px;
-      border: 1px solid #dbe8f7;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.8);
-      color: #526d88;
-      font-size: 12px;
-      cursor: pointer;
-    }
+.win h2 {
+  color: var(--win);
+}
 
-    .footer {
-      margin-top: 17px;
-      color: #71859b;
-      font-size: 11px;
-      line-height: 1.7;
-      text-align: center;
-    }
+.lose {
+  border-color: #e0e8ff;
+  background: linear-gradient(150deg, #edf3ff, #f8f6ff);
+}
 
-    .footer strong {
-      color: #526d88;
-    }
+.lose h2 {
+  color: #5c6db9;
+}
 
-    .sparkle {
-      position: fixed;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.7;
-      animation: twinkle 3s ease-in-out infinite;
-    }
+.result.pop {
+  animation: pop .65s cubic-bezier(.2,.8,.2,1);
+}
 
-    .sparkle.one {
-      top: 8%;
-      left: 7%;
-      font-size: 23px;
-    }
+@keyframes pop {
+  0% { opacity: 0; transform: scale(.72) translateY(12px); }
+  70% { transform: scale(1.03); }
+  100% { opacity: 1; transform: scale(1); }
+}
 
-    .sparkle.two {
-      top: 19%;
-      right: 8%;
-      font-size: 29px;
-      animation-delay: 0.8s;
-    }
+.confetti {
+  position: fixed;
+  top: -15px;
+  z-index: 10;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  pointer-events: none;
+  animation: fall var(--duration) linear forwards;
+}
 
-    .sparkle.three {
-      bottom: 12%;
-      left: 9%;
-      font-size: 26px;
-      animation-delay: 1.4s;
-    }
+@keyframes fall {
+  to {
+    transform: translate(var(--drift), 110vh) rotate(720deg);
+    opacity: .7;
+  }
+}
 
-    .sparkle.four {
-      right: 7%;
-      bottom: 17%;
-      font-size: 21px;
-      animation-delay: 0.4s;
-    }
+/* Shorter phone screens */
+@media (max-height: 700px) {
+  body {
+    padding: 8px;
+  }
 
-    .confetti-piece {
-      position: fixed;
-      z-index: 10;
-      top: -15px;
-      width: 9px;
-      height: 13px;
-      pointer-events: none;
-      animation: confettiFall 2.8s linear forwards;
-    }
+  .card {
+    padding: 14px 18px 12px;
+  }
 
-    .small-print {
-      margin-top: 11px;
-      color: #8191a3;
-      font-size: 10px;
-      line-height: 1.5;
-    }
+  .brand {
+    margin-bottom: 6px;
+  }
 
-    .hidden {
-      display: none !important;
-    }
+  .hero {
+    width: 76px;
+    height: 76px;
+    margin: 10px auto 7px;
+    font-size: 42px;
+    border-radius: 23px;
+  }
 
-    @keyframes cardEnter {
-      from {
-        opacity: 0;
-        transform: translateY(18px) scale(0.98);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
+  h1 {
+    margin: 6px 0;
+    font-size: 29px;
+  }
 
-    @keyframes resultEnter {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+  .subtitle {
+    font-size: 13px;
+    line-height: 1.45;
+  }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
+  .main-button {
+    min-height: 52px;
+    margin-top: 14px;
+    padding: 13px;
+  }
 
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 8px 20px rgba(82, 126, 209, 0.25); }
-      50% { box-shadow: 0 8px 27px rgba(82, 126, 209, 0.44); }
-    }
+  .sound-row {
+    margin-top: 7px;
+  }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.4; transform: scale(0.9) rotate(0); }
-      50% { opacity: 1; transform: scale(1.1) rotate(12deg); }
-    }
+  .footer {
+    margin-top: 10px;
+    padding-top: 8px;
+  }
 
-    @keyframes confettiFall {
-      to {
-        transform: translate3d(var(--drift), 105vh, 0) rotate(720deg);
-        opacity: 0;
-      }
-    }
+  .result {
+    padding: 13px 10px;
+  }
 
-    @media (max-width: 360px) {
-      body {
-        padding: 14px 9px;
-      }
+  .result-icon {
+    font-size: 45px;
+  }
 
-      .card {
-        padding: 25px 15px 20px;
-        border-radius: 23px;
-      }
+  .result h2 {
+    font-size: 22px;
+  }
+}
 
-      .steps {
-        gap: 5px;
-      }
+@media (max-width: 360px) {
+  .card {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 
-      .step {
-        font-size: 9px;
-      }
+  .subtitle {
+    font-size: 13px;
+  }
+}
 
-      .reveal-area {
-        padding: 17px 10px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="sparkle one" aria-hidden="true">✦</div>
-  <div class="sparkle two" aria-hidden="true">✧</div>
-  <div class="sparkle three" aria-hidden="true">✦</div>
-  <div class="sparkle four" aria-hidden="true">✧</div>
+<div class="stars" aria-hidden="true">
+  <span class="star">✦</span>
+  <span class="star">✧</span>
+  <span class="star">✦</span>
+  <span class="star">✧</span>
+</div>
 
-  <main class="page">
-    <section class="card">
-      <div class="brand-mark" aria-hidden="true">🎁</div>
+<main class="card">
+  <div id="brandName" class="brand">SPARK ICT CLUB</div>
 
-      <p class="eyebrow" id="organizationName">
-        ICT-SPARK Club
-      </p>
-    
-      <img
-  src="1791567346676.jpg"
-  alt="Organization Logo"
-  class="organization-logo"
->
+  <section id="welcome">
+    <span class="label">✦ A LITTLE SURPRISE ✦</span>
 
-      <h1>Lucky Reveal!</h1>
+    <div class="hero" aria-hidden="true">🎁</div>
 
-      <p class="subtitle">
-        Every purchase brings a little excitement.
-        Are you ready to reveal your result?
-      </p>
+    <h1>Lucky <span class="gradient">Reveal!</span></h1>
 
-      <div class="steps" aria-label="How to participate">
-        <div class="step">
-          <span>🛍️</span>
-          BUY
-        </div>
-        <div class="step">
-          <span>📱</span>
-          SCAN
-        </div>
-        <div class="step">
-          <span>✨</span>
-          REVEAL
-        </div>
-      </div>
+    <p class="subtitle">
+      Are you ready?
+      <br>A little surprise might be waiting for you. ✨
+    </p>
 
-      <div class="reveal-area" id="revealArea">
-        <div class="gift-icon" aria-hidden="true">🎀</div>
-        <p class="reveal-title">Your moment is here!</p>
-        <p class="reveal-description">
-          Tap the button below and discover whether
-          luck is on your side today.
-        </p>
+    <button id="playButton" class="main-button" type="button">
+      TAP TO REVEAL ✨
+    </button>
 
-        <button
-          type="button"
-          class="reveal-button"
-          id="revealButton"
-        >
-          ✨ TAP TO REVEAL ✨
-        </button>
-      </div>
-
-      <section
-        class="result"
-        id="result"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        <div class="result-icon" id="resultIcon" aria-hidden="true">🎉</div>
-        <h2 id="resultTitle">YOU WON!</h2>
-        <p id="resultMessage"></p>
-
-        <div class="result-note" id="resultNote"></div>
-      </section>
-
-      <button
-        type="button"
-        class="sound-button"
-        id="soundButton"
-        aria-pressed="true"
-      >
+    <div class="sound-row">
+      <button id="soundButton" class="sound-button" type="button">
         🔊 Sound: On
       </button>
+    </div>
 
-      <p class="small-print">
-        One reveal per browser is attempted using this device's local storage.
-        Show your result to the organizer for purchase verification.
-      </p>
-    </section>
+    <div class="notice">
+      Please purchase from a participating student business before playing.
+    </div>
+  </section>
 
-    <footer class="footer">
-      <strong id="footerOrganization">YOUR ORGANIZATION NAME</strong>
-      <br>
-      Supporting our participating student businesses 💙
-    </footer>
-  </main>
+  <section id="resultScreen" class="hidden" aria-live="polite">
+    <span class="label">✦ YOUR RESULT ✦</span>
 
-  <script>
-    "use strict";
+    <div id="resultIcon" class="hero" aria-hidden="true">🎉</div>
 
-    /* =========================================
-       RAFFLE SETTINGS
-       ========================================= */
+    <h1 id="resultHeading">YOUR RESULT</h1>
 
-    const SETTINGS = {
-      businessName: "ICT-SPARK Club",
+    <div id="resultBox" class="result">
+      <h2 id="resultTitle"></h2>
+      <p id="resultMessage" class="message"></p>
+      <p id="resultDescription" class="description"></p>
+    </div>
 
-      // Example only: 20% chance of winning.
-      // Set the percentage approved by your organizer.
-      winChancePercent: 20,
+    <div id="claimNotice" class="notice">
+      Show this winning screen to the organizer. Your prize will be assigned
+      based on the available rewards after your purchase is verified.
+    </div>
 
-      // Local browser deterrent only; not secure across devices.
-      storageKey: "organizationRaffle_v1",
+    <div class="notice">
+      Thank you for supporting our student businesses! 💙
+    </div>
+  </section>
 
-      soundEnabledByDefault: true
+  <div class="footer">SPARK ICT CLUB • LUCKY REVEAL</div>
+</main>
+
+<script>
+"use strict";
+
+// ======================================
+// RAFFLE SETTINGS
+// ======================================
+
+const SETTINGS = {
+  businessName: "SPARK ICT CLUB",
+
+  // 20 means a 20% chance of winning.
+  winChancePercent: 20,
+
+  // Keep this key unchanged during the raffle.
+  storageKey: "scanWinEvent_v1",
+
+  soundEnabledByDefault: true
+};
+
+// ======================================
+// RAFFLE FUNCTIONALITY
+// ======================================
+
+const $ = id => document.getElementById(id);
+
+const welcome = $("welcome");
+const resultScreen = $("resultScreen");
+const playButton = $("playButton");
+const soundButton = $("soundButton");
+
+let soundEnabled = SETTINGS.soundEnabledByDefault;
+let playing = false;
+let audioContext = null;
+
+$("brandName").textContent = SETTINGS.businessName;
+soundButton.textContent = soundEnabled
+  ? "🔊 Sound: On"
+  : "🔇 Sound: Off";
+
+function getSavedResult() {
+  const raw = localStorage.getItem(SETTINGS.storageKey);
+  if (!raw) return null;
+
+  const data = JSON.parse(raw);
+
+  if (typeof data.won !== "boolean") {
+    throw new Error("Invalid saved raffle result");
+  }
+
+  return data;
+}
+
+function playTone(frequency, duration, type = "sine", volume = 0.07) {
+  if (!soundEnabled) return;
+
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+
+    if (!audioContext) audioContext = new AudioCtx();
+
+    if (audioContext.state === "suspended") {
+      audioContext.resume();
+    }
+
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(
+      frequency, audioContext.currentTime
+    );
+
+    gain.gain.setValueAtTime(volume, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+      0.001, audioContext.currentTime + duration
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + duration);
+  } catch (error) {
+    // The raffle still works if sound is unavailable.
+  }
+}
+
+function playWinSound() {
+  playTone(523, .18);
+  setTimeout(() => playTone(659, .18), 140);
+  setTimeout(() => playTone(784, .3), 280);
+}
+
+function playLoseSound() {
+  playTone(392, .2, "sine", .045);
+  setTimeout(() => playTone(330, .3, "sine", .045), 180);
+}
+
+soundButton.addEventListener("click", () => {
+  soundEnabled = !soundEnabled;
+
+  soundButton.textContent = soundEnabled
+    ? "🔊 Sound: On"
+    : "🔇 Sound: Off";
+
+  if (soundEnabled) playTone(600, .12);
+});
+
+function launchConfetti() {
+  const colors = [
+    "#4388f5", "#8865df", "#ffd66b",
+    "#69dca0", "#ff8bb5", "#ffffff"
+  ];
+
+  for (let i = 0; i < 55; i++) {
+    const piece = document.createElement("div");
+    piece.className = "confetti";
+    piece.style.left = Math.random() * 100 + "vw";
+    piece.style.backgroundColor =
+      colors[Math.floor(Math.random() * colors.length)];
+
+    piece.style.setProperty(
+      "--duration", (2 + Math.random() * 2.5) + "s"
+    );
+
+    piece.style.setProperty(
+      "--drift", (Math.random() * 180 - 90) + "px"
+    );
+
+    document.body.appendChild(piece);
+    piece.addEventListener("animationend", () => piece.remove());
+  }
+}
+
+function showResult(data, savedBefore) {
+  welcome.classList.add("hidden");
+  resultScreen.classList.remove("hidden");
+
+  const box = $("resultBox");
+  box.className = "result " + (data.won ? "win" : "lose");
+
+  if (!savedBefore) {
+    void box.offsetWidth;
+    box.classList.add("pop");
+  }
+
+  $("resultIcon").textContent = data.won ? "🎉" : "💙";
+
+  $("resultHeading").textContent = data.won
+    ? "CONGRATULATIONS!"
+    : "THANK YOU FOR PLAYING!";
+
+  $("resultTitle").textContent = data.won
+    ? "YOU WON! 🏆"
+    : "BETTER LUCK NEXT TIME!";
+
+  $("resultMessage").textContent = data.won
+    ? "You've got a lucky surprise!"
+    : "Your next lucky moment may be around the corner!";
+
+  $("resultDescription").textContent = data.won
+    ? "Your prize will be assigned by the organizer after purchase verification."
+    : "Thank you for supporting our student businesses.";
+
+  $("claimNotice").classList.toggle("hidden", !data.won);
+
+  if (!savedBefore && data.won) {
+    launchConfetti();
+    playWinSound();
+  } else if (!savedBefore) {
+    playLoseSound();
+  }
+}
+
+function playRaffle() {
+  if (playing) return;
+
+  playing = true;
+  playButton.disabled = true;
+  playButton.textContent = "REVEALING... ✨";
+
+  try {
+    const previous = getSavedResult();
+
+    if (previous) {
+      showResult(previous, true);
+      return;
+    }
+
+    if (
+      !Number.isFinite(SETTINGS.winChancePercent) ||
+      SETTINGS.winChancePercent < 0 ||
+      SETTINGS.winChancePercent > 100
+    ) {
+      throw new Error("Check the winning probability");
+    }
+
+    const won =
+      Math.random() * 100 < SETTINGS.winChancePercent;
+
+    const outcome = {
+      won: won,
+      playedAt: new Date().toISOString()
     };
 
-    /* =========================================
-       ELEMENTS
-       ========================================= */
+    // Save the result before displaying it.
+    localStorage.setItem(
+      SETTINGS.storageKey,
+      JSON.stringify(outcome)
+    );
 
-    const revealButton = document.getElementById("revealButton");
-    const revealArea = document.getElementById("revealArea");
-    const resultPanel = document.getElementById("result");
-    const resultIcon = document.getElementById("resultIcon");
-    const resultTitle = document.getElementById("resultTitle");
-    const resultMessage = document.getElementById("resultMessage");
-    const resultNote = document.getElementById("resultNote");
-    const soundButton = document.getElementById("soundButton");
+    const saved = getSavedResult();
 
-    document.getElementById("organizationName").textContent =
-      SETTINGS.businessName;
-
-    document.getElementById("footerOrganization").textContent =
-      SETTINGS.businessName;
-
-    let soundEnabled = SETTINGS.soundEnabledByDefault;
-    let audioContext = null;
-    let isRevealing = false;
-
-    /* =========================================
-       SOUND EFFECTS
-       ========================================= */
-
-    function playTone(frequency, duration, type = "sine", volume = 0.06) {
-      if (!soundEnabled) return;
-
-      try {
-        const AudioContextClass =
-          window.AudioContext || window.webkitAudioContext;
-
-        if (!AudioContextClass) return;
-
-        if (!audioContext) {
-          audioContext = new AudioContextClass();
-        }
-
-        if (audioContext.state === "suspended") {
-          audioContext.resume();
-        }
-
-        const oscillator = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-
-        oscillator.type = type;
-        oscillator.frequency.setValueAtTime(
-          frequency,
-          audioContext.currentTime
-        );
-
-        gain.gain.setValueAtTime(volume, audioContext.currentTime);
-        gain.gain.exponentialRampToValueAtTime(
-          0.001,
-          audioContext.currentTime + duration
-        );
-
-        oscillator.connect(gain);
-        gain.connect(audioContext.destination);
-
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + duration);
-      } catch (error) {
-        // Sound is optional; the raffle still works if audio is unavailable.
-      }
+    if (!saved) {
+      throw new Error("Could not verify saved result");
     }
 
-    function playRevealSound() {
-      playTone(440, 0.12);
-      setTimeout(() => playTone(620, 0.12), 120);
-      setTimeout(() => playTone(760, 0.18), 240);
-    }
+    showResult(saved, false);
 
-    function playWinSound() {
-      [523, 659, 784, 1046].forEach((frequency, index) => {
-        setTimeout(() => playTone(frequency, 0.25, "sine", 0.07), index * 130);
-      });
-    }
+  } catch (error) {
+    alert(
+      "Unable to save or load your raffle result. " +
+      "Please ask the event organizer for assistance."
+    );
 
-    function playLoseSound() {
-      playTone(390, 0.22, "sine", 0.045);
-      setTimeout(() => playTone(300, 0.3, "sine", 0.035), 180);
-    }
+    playButton.disabled = false;
+    playButton.textContent = "TAP TO REVEAL ✨";
+    playing = false;
+  }
+}
 
-    soundButton.addEventListener("click", () => {
-      soundEnabled = !soundEnabled;
+playButton.addEventListener("click", playRaffle);
 
-      soundButton.textContent = soundEnabled
-        ? "🔊 Sound: On"
-        : "🔇 Sound: Off";
+// Restore the same result after a page refresh.
+try {
+  const previous = getSavedResult();
 
-      soundButton.setAttribute("aria-pressed", String(soundEnabled));
+  if (previous) {
+    showResult(previous, true);
+    playButton.disabled = true;
+  }
+} catch (error) {
+  playButton.disabled = true;
+  playButton.textContent = "PLEASE ASK THE ORGANIZER";
 
-      if (soundEnabled) playTone(600, 0.12);
-    });
-
-    /* =========================================
-       CONFETTI
-       ========================================= */
-
-    function launchConfetti() {
-      const colors = [
-        "#5da9e9",
-        "#9b8df0",
-        "#a5e6cf",
-        "#ffd166",
-        "#ff9eb5",
-        "#ffffff"
-      ];
-
-      for (let i = 0; i < 65; i++) {
-        const piece = document.createElement("div");
-        piece.className = "confetti-piece";
-
-        piece.style.left = Math.random() * 100 + "vw";
-        piece.style.backgroundColor =
-          colors[Math.floor(Math.random() * colors.length)];
-
-        piece.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px";
-        piece.style.setProperty(
-          "--drift",
-          (Math.random() * 240 - 120) + "px"
-        );
-
-        piece.style.animationDuration =
-          (1.8 + Math.random() * 1.8) + "s";
-
-        document.body.appendChild(piece);
-
-        setTimeout(() => piece.remove(), 4000);
-      }
-    }
-
-    /* =========================================
-       RESULT DISPLAY
-       ========================================= */
-
-    function showResult(won, isRestored = false) {
-      revealArea.classList.add("hidden");
-      resultPanel.classList.add("show");
-
-      if (won) {
-        resultPanel.className = "result show win";
-        resultIcon.textContent = "🎉";
-        resultTitle.textContent = "YOU WON!";
-        resultMessage.textContent =
-          "Congratulations! You are one of our lucky winners!";
-
-        resultNote.textContent =
-          "Please show this winning screen to the organizer. " +
-          "Your prize will be assigned by the organizer based on " +
-          "the rewards available. A purchase must be verified before claiming.";
-
-        if (!isRestored) {
-          launchConfetti();
-          playWinSound();
-        }
-      } else {
-        resultPanel.className = "result show lose";
-        resultIcon.textContent = "💙";
-        resultTitle.textContent = "BETTER LUCK NEXT TIME!";
-        resultMessage.textContent =
-          "Thank you for supporting our participating student businesses!";
-
-        resultNote.textContent =
-          "Keep supporting our organization and its student entrepreneurs. " +
-          "Thank you for participating!";
-
-        if (!isRestored) {
-          playLoseSound();
-        }
-      }
-
-      revealButton.disabled = true;
-      revealButton.textContent = "RESULT REVEALED";
-    }
-
-    /* =========================================
-       RAFFLE LOGIC
-       ========================================= */
-
-    function readSavedResult() {
-      try {
-        const saved = localStorage.getItem(SETTINGS.storageKey);
-
-        if (!saved) return null;
-
-        const parsed = JSON.parse(saved);
-
-        if (
-          parsed &&
-          typeof parsed.won === "boolean"
-        ) {
-          return parsed;
-        }
-      } catch (error) {
-        // Storage may be disabled or unavailable.
-      }
-
-      return null;
-    }
-
-    function playRaffle() {
-      if (isRevealing) return;
-
-      // Restore an existing result instead of generating a new one.
-      const existingResult = readSavedResult();
-
-      if (existingResult) {
-        showResult(existingResult.won, true);
-        return;
-      }
-
-      isRevealing = true;
-      revealButton.disabled = true;
-      revealButton.textContent = "✨ REVEALING... ✨";
-
-      playRevealSound();
-
-      // Brief delay for the reveal animation.
-      setTimeout(() => {
-        const won =
-          Math.random() * 100 < SETTINGS.winChancePercent;
-
-        const result = {
-          won: won,
-          timestamp: Date.now()
-        };
-
-        // Save when storage is available.
-        // This does NOT secure the raffle or prevent another device
-        // from participating.
-        try {
-          localStorage.setItem(
-            SETTINGS.storageKey,
-            JSON.stringify(result)
-          );
-        } catch (error) {
-          // Continue to display the result if storage is unavailable.
-        }
-
-        showResult(won);
-        isRevealing = false;
-      }, 1100);
-    }
-
-    revealButton.addEventListener("click", playRaffle);
-
-    /* =========================================
-       RESTORE RESULT AFTER REFRESH
-       ========================================= */
-
-    (function restorePreviousResult() {
-      const savedResult = readSavedResult();
-
-      if (savedResult) {
-        showResult(savedResult.won, true);
-      }
-    })();
-  </script>
+  alert(
+    "Your saved result could not be read. " +
+    "Please contact the event organizer."
+  );
+}
+</script>
 </body>
-</html>
+      </html>
