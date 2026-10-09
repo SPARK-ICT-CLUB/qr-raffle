@@ -770,48 +770,59 @@
     /* =====================================
        SOUND EFFECTS
     ===================================== */
+    
+async function playTone(frequency, duration, type = "sine", volume = 0.15) {
+  if (!soundEnabled) return;
 
-    function playTone(frequency, duration, type = "sine", volume = 0.08) {
-      if (!soundEnabled) return;
+  try {
+    const AudioContextClass =
+      window.AudioContext || window.webkitAudioContext;
 
-      try {
-        const AudioContextClass =
-          window.AudioContext || window.webkitAudioContext;
-
-        if (!AudioContextClass) return;
-
-        if (!audioContext) {
-          audioContext = new AudioContextClass();
-        }
-
-        if (audioContext.state === "suspended") {
-          audioContext.resume();
-        }
-
-        const oscillator = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-
-        oscillator.type = type;
-        oscillator.frequency.setValueAtTime(
-          frequency,
-          audioContext.currentTime
-        );
-
-        gain.gain.setValueAtTime(volume, audioContext.currentTime);
-        gain.gain.exponentialRampToValueAtTime(
-          0.001,
-          audioContext.currentTime + duration
-        );
-
-        oscillator.connect(gain);
-        gain.connect(audioContext.destination);
-
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + duration);
-      } catch (error) {
-        // The raffle still works if the browser blocks audio.
-      }
+    if (!AudioContextClass) {
+      console.warn("Web Audio is not supported.");
+      return;
     }
+
+    if (!audioContext) {
+      audioContext = new AudioContextClass();
+    }
+
+    if (audioContext.state !== "running") {
+      await audioContext.resume();
+    }
+
+    if (audioContext.state !== "running") {
+      console.warn("Audio context is not running.");
+      return;
+    }
+
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    const now = audioContext.currentTime;
+
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(frequency, now);
+
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(volume, now + 0.02);
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      now + duration
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start(now);
+    oscillator.stop(now + duration + 0.02);
+
+  } catch (error) {
+    console.error("Sound playback failed:", error);
+  }
+}
+
+
+
 
     function playRevealSound() {
       playTone(440, 0.12, "sine", 0.07);
@@ -840,18 +851,21 @@
         playTone(330, 0.25, "sine", 0.05);
       }, 170);
     }
+    
+soundButton.addEventListener("click", async () => {
+  soundEnabled = !soundEnabled;
 
-    soundButton.addEventListener("click", () => {
-      soundEnabled = !soundEnabled;
+  soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
+  soundLabel.textContent = soundEnabled ? "Sound On" : "Sound Off";
+  soundButton.setAttribute("aria-pressed", String(soundEnabled));
 
-      soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
-      soundLabel.textContent = soundEnabled ? "Sound On" : "Sound Off";
-      soundButton.setAttribute("aria-pressed", String(soundEnabled));
+  if (soundEnabled) {
+    await playTone(880, 0.35, "sine", 0.2);
+  }
+});
 
-      if (soundEnabled) {
-        playTone(660, 0.12);
-      }
-    });
+
+    
 
     /* =====================================
        BASIC LOCAL RESULT STORAGE
