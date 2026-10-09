@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucky QR Raffle</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      color: #183153;
+      background: linear-gradient(135deg, #dff4ff, #e9e4ff, #fff0f7);
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      padding: 30px 22px;
+      text-align: center;
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 12px 35px #52608025;
+    }
+
+    .emoji {
+      font-size: 60px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 10px 0;
+      font-size: 29px;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #59677d;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      margin-top: 18px;
+      border: none;
+      border-radius: 14px;
+      background: #478bd7;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 20px 12px;
+      border-radius: 18px;
+      background: #f1f7ff;
+    }
+
+    .win {
+      background: #e1f9e9;
+      color: #176b38;
+    }
+
+    .lose {
+      background: #fff0f0;
+      color: #a33c4a;
+    }
+
+    .result h2 {
+      font-size: 27px;
+    }
+
+    .small {
+      margin-top: 24px;
+      font-size: 12px;
+      color: #8993a5;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .animate {
+      animation: reveal .5s ease-out;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+
+    <section id="welcome">
+      <div class="emoji">🎁</div>
+      <h1>LUCKY QR RAFFLE</h1>
+
+      <p>
+        Welcome, lucky participant!
+        Are you ready to discover your result?
+      </p>
+
+      <p>
+        Tap below to reveal your result.
+        You get one play per browser.
+      </p>
+
+      <button id="startButton" onclick="playRaffle()">
+        REVEAL MY RESULT ✨
+      </button>
+    </section>
+
+    <section id="resultScreen" class="hidden">
+      <div id="resultEmoji" class="emoji">🎉</div>
+      <h1 id="resultTitle">YOUR RESULT</h1>
+
+      <div id="resultBox" class="result">
+        <h2 id="resultMessage"></h2>
+        <p id="resultDetails"></p>
+      </div>
+
+      <p>Thank you for participating!</p>
+    </section>
+
+    <section id="alreadyPlayed" class="hidden">
+      <div class="emoji">🔒</div>
+      <h1>YOU'VE ALREADY PLAYED!</h1>
+
+      <p>
+        This browser has already participated
+        in the raffle.
+      </p>
+
+      <p>
+        Each browser gets one attempt.
+        Please ask the event organizer if you need help.
+      </p>
+    </section>
+
+    <div class="small">
+      SCHOOL EVENT RAFFLE • GOOD LUCK!
+    </div>
+
+  </main>
+
+  <script>
+    // ===== RAFFLE SETTINGS =====
+
+    const STORAGE_KEY = "schoolRafflePlayed_v1";
+
+    // Winning probability: 20%
+    const WIN_CHANCE_PERCENT = 20;
+
+    const PRIZES = [
+      "A Special Prize 🏆",
+      "A Surprise Gift 🎁",
+      "A Lucky Reward ⭐"
+    ];
+
+    // ===== WEBSITE ELEMENTS =====
+
+    const welcome = document.getElementById("welcome");
+    const resultScreen =
+      document.getElementById("resultScreen");
+    const alreadyPlayed =
+      document.getElementById("alreadyPlayed");
+    const startButton =
+      document.getElementById("startButton");
+
+    function showAlreadyPlayed() {
+      welcome.classList.add("hidden");
+      resultScreen.classList.add("hidden");
+      alreadyPlayed.classList.remove("hidden");
+    }
+
+    function showSavedResult(saved) {
+      welcome.classList.add("hidden");
+      alreadyPlayed.classList.add("hidden");
+      resultScreen.classList.remove("hidden");
+
+      const box = document.getElementById("resultBox");
+
+      box.className = "result animate";
+      box.classList.add(saved.won ? "win" : "lose");
+
+      document.getElementById("resultEmoji").textContent =
+        saved.won ? "🎉" : "💙";
+
+      document.getElementById("resultTitle").textContent =
+        saved.won ? "CONGRATULATIONS!" : "NOT THIS TIME!";
+
+      document.getElementById("resultMessage").textContent =
+        saved.won ? "YOU WON!" : "BETTER LUCK NEXT TIME!";
+
+      document.getElementById("resultDetails").textContent =
+        saved.won
+          ? "Your prize: " + saved.prize
+          : "Thank you for joining. Keep smiling!";
+    }
+
+    function playRaffle() {
+      startButton.disabled = true;
+
+      // Stop another attempt in this browser.
+      const previous = localStorage.getItem(STORAGE_KEY);
+
+      if (previous) {
+        showAlreadyPlayed();
+        return;
+      }
+
+      // Generate the result.
+      const won =
+        Math.random() * 100 < WIN_CHANCE_PERCENT;
+
+      const prize = won
+        ? PRIZES[
+            Math.floor(Math.random() * PRIZES.length)
+          ]
+        : null;
+
+      const outcome = {
+        won: won,
+        prize: prize,
+        playedAt: new Date().toISOString()
+      };
+
+      // Save before displaying the result.
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(outcome)
+        );
+
+        const saved = localStorage.getItem(STORAGE_KEY);
+
+        if (!saved) {
+          throw new Error("Unable to save attempt");
+        }
+
+        showSavedResult(JSON.parse(saved));
+
+      } catch (error) {
+        alert(
+          "Unable to save your attempt. " +
+          "Please enable browser storage and reload the page."
+        );
+
+        startButton.disabled = false;
+      }
+    }
+
+    // ===== CHECK PREVIOUS PARTICIPATION =====
+
+    try {
+      const previous = localStorage.getItem(STORAGE_KEY);
+
+      if (previous) {
+        showAlreadyPlayed();
+      }
+    } catch (error) {
+      startButton.disabled = true;
+
+      alert(
+        "Browser storage is unavailable. " +
+        "Please enable site storage to continue."
+      );
+    }
+  </script>
+</body>
+</html>
