@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +8,6 @@
   <title>Lucky Reveal | SPARK ICT CLUB</title>
 
   <style>
-    /* =====================================
-       LUCKY REVEAL — PASTEL BLUE & LAVENDER
-    ===================================== */
-
     :root {
       --blue: #8db8f5;
       --blue-dark: #5488d4;
@@ -57,8 +54,6 @@
       outline: 3px solid #547fc8;
       outline-offset: 4px;
     }
-
-    /* BACKGROUND DECORATIONS */
 
     .stars {
       position: fixed;
@@ -128,8 +123,6 @@
       }
     }
 
-    /* MAIN CARD */
-
     .page {
       width: 100%;
       max-width: 430px;
@@ -173,8 +166,6 @@
       bottom: -90px;
     }
 
-    /* BRAND */
-
     .brand {
       display: flex;
       justify-content: center;
@@ -211,8 +202,6 @@
       letter-spacing: 2px;
       margin-bottom: 12px;
     }
-
-    /* GIFT ILLUSTRATION */
 
     .gift-wrap {
       height: 145px;
@@ -279,8 +268,6 @@
       }
     }
 
-    /* HEADINGS */
-
     h1 {
       font-size: clamp(32px, 8vw, 43px);
       line-height: 1.12;
@@ -301,8 +288,6 @@
       font-size: 14px;
       line-height: 1.65;
     }
-
-    /* REVEAL BUTTON */
 
     .reveal-button {
       width: 100%;
@@ -362,8 +347,6 @@
       margin-left: 5px;
     }
 
-    /* SOUND TOGGLE */
-
     .sound-row {
       display: flex;
       justify-content: center;
@@ -390,8 +373,6 @@
     .sound-button:hover {
       background: #f2efff;
     }
-
-    /* DIVIDER AND NOTE */
 
     .divider {
       width: 100%;
@@ -423,8 +404,6 @@
       font-weight: 800;
     }
 
-    /* RESULT PANEL */
-
     .result-panel {
       display: none;
       margin-top: 20px;
@@ -437,629 +416,4 @@
       display: block;
     }
 
-    .result-panel.win {
-      background: linear-gradient(140deg, #e4f8ec, #edf7ff);
-      border: 1px solid #ccebd8;
-    }
-
-    .result-panel.lose {
-      background: linear-gradient(140deg, #f0ebff, #fdf0f7);
-      border: 1px solid #e4dafa;
-    }
-
-    @keyframes resultAppear {
-      from {
-        opacity: 0;
-        transform: translateY(12px) scale(0.96);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .result-emoji {
-      font-size: 46px;
-      margin-bottom: 8px;
-    }
-
-    .result-title {
-      font-size: 27px;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-    }
-
-    .win .result-title {
-      color: #358a63;
-    }
-
-    .lose .result-title {
-      color: #8270bb;
-    }
-
-    .result-message {
-      color: #626985;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .result-reminder {
-      font-size: 11px;
-      line-height: 1.6;
-      margin-top: 12px;
-      color: #8185a0;
-    }
-
-    .result-status {
-      display: inline-block;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.75);
-      padding: 7px 12px;
-      margin-top: 13px;
-      color: #77759e;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-
-    /* CONFETTI */
-
-    .confetti-layer {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .confetti {
-      position: absolute;
-      top: -20px;
-      width: 9px;
-      height: 13px;
-      border-radius: 2px;
-      animation: confettiFall linear forwards;
-    }
-
-    @keyframes confettiFall {
-      to {
-        transform: translate3d(var(--drift), 110vh, 0) rotate(760deg);
-        opacity: 0.1;
-      }
-    }
-
-    /* REDUCED MOTION */
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
-    /* SMALL PHONES */
-
-    @media (max-width: 380px) {
-      body {
-        padding: 12px;
-      }
-
-      .card {
-        padding: 23px 18px 19px;
-        border-radius: 25px;
-      }
-
-      .brand {
-        margin-bottom: 15px;
-      }
-
-      .gift-wrap {
-        height: 125px;
-      }
-
-      .gift-glow {
-        width: 108px;
-        height: 108px;
-      }
-
-      .gift {
-        font-size: 72px;
-      }
-
-      .sparkle-one {
-        left: 35px;
-      }
-
-      .sparkle-two {
-        right: 34px;
-      }
-
-      h1 {
-        font-size: 34px;
-      }
-
-      .subtitle {
-        font-size: 13px;
-        margin-bottom: 17px;
-      }
-
-      .reveal-button {
-        min-height: 58px;
-        font-size: 14px;
-      }
-    }
-
-    @media (max-height: 720px) {
-      body {
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-
-      .card {
-        padding-top: 18px;
-        padding-bottom: 15px;
-      }
-
-      .brand {
-        margin-bottom: 11px;
-      }
-
-      .eyebrow {
-        margin-bottom: 7px;
-        padding: 6px 11px;
-      }
-
-      .gift-wrap {
-        height: 105px;
-        margin-bottom: 5px;
-      }
-
-      .gift-glow {
-        width: 92px;
-        height: 92px;
-      }
-
-      .gift {
-        font-size: 64px;
-      }
-
-      .sparkle-one {
-        top: 8px;
-      }
-
-      .sparkle-two {
-        bottom: 12px;
-      }
-
-      h1 {
-        margin-bottom: 8px;
-      }
-
-      .subtitle {
-        margin-bottom: 14px;
-      }
-
-      .sound-row {
-        margin-top: 14px;
-      }
-
-      .divider {
-        margin: 15px 0 10px;
-      }
-
-      .footer {
-        margin-top: 12px;
-      }
-
-      .result-panel {
-        margin-top: 14px;
-        padding: 15px 12px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="stars" aria-hidden="true">
-    <span class="star">✦</span>
-    <span class="star">✧</span>
-    <span class="star">✦</span>
-    <span class="star">✧</span>
-    <span class="star">·</span>
-    <span class="star">·</span>
-  </div>
-
-  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
-
-  <main class="page">
-    <section class="card" aria-labelledby="pageTitle">
-
-      <div class="brand">
-        <div class="brand-icon" aria-hidden="true">✦</div>
-        <div class="brand-name">SPARK ICT CLUB</div>
-      </div>
-
-      <div class="eyebrow">✦ A LITTLE SURPRISE ✦</div>
-
-      <div class="gift-wrap" aria-hidden="true">
-        <div class="gift-glow"></div>
-        <span class="mini-sparkle sparkle-one">✧</span>
-        <span class="gift">🎁</span>
-        <span class="mini-sparkle sparkle-two">✦</span>
-      </div>
-
-      <h1 id="pageTitle">Lucky <span>Reveal!</span></h1>
-
-      <p class="subtitle" id="subtitle">
-        Are you ready? A little surprise might be waiting for you. ✨
-      </p>
-
-      <button class="reveal-button" id="revealButton" type="button">
-        TAP TO REVEAL <span class="button-sparkle">✨</span>
-      </button>
-
-      <div class="result-panel" id="resultPanel" aria-live="polite" aria-atomic="true">
-        <div class="result-emoji" id="resultEmoji">🎉</div>
-        <h2 class="result-title" id="resultTitle">YOU WON!</h2>
-        <p class="result-message" id="resultMessage"></p>
-        <p class="result-reminder" id="resultReminder"></p>
-        <div class="result-status" id="resultStatus"></div>
-      </div>
-
-      <div class="sound-row">
-        <button
-          class="sound-button"
-          id="soundButton"
-          type="button"
-          aria-pressed="true"
-        >
-          <span id="soundIcon" aria-hidden="true">🔊</span>
-          <span id="soundLabel">Sound On</span>
-        </button>
-      </div>
-
-      <div class="divider"></div>
-
-      <p class="purchase-note">
-        <strong>One eligible purchase = one entry.</strong><br>
-        Winning results must be verified by the organizer.
-      </p>
-
-      <div class="footer">GOOD LUCK & HAVE FUN ♡</div>
-    </section>
-  </main>
-
-  <script>
-    /* =====================================
-       LUCKY REVEAL SETTINGS
-    ===================================== */
-
-    const SETTINGS = {
-      businessName: "SPARK ICT CLUB",
-      winChancePercent: 30,
-      storageKey: "sparkLuckyReveal_v2",
-      soundEnabledByDefault: true
-    };
-
-    /* =====================================
-       ELEMENTS
-    ===================================== */
-
-    const revealButton = document.getElementById("revealButton");
-    const subtitle = document.getElementById("subtitle");
-    const resultPanel = document.getElementById("resultPanel");
-    const resultEmoji = document.getElementById("resultEmoji");
-    const resultTitle = document.getElementById("resultTitle");
-    const resultMessage = document.getElementById("resultMessage");
-    const resultReminder = document.getElementById("resultReminder");
-    const resultStatus = document.getElementById("resultStatus");
-    const soundButton = document.getElementById("soundButton");
-    const soundIcon = document.getElementById("soundIcon");
-    const soundLabel = document.getElementById("soundLabel");
-    const confettiLayer = document.getElementById("confettiLayer");
-
-    let soundEnabled = SETTINGS.soundEnabledByDefault;
-    let audioContext = null;
-    let isRevealing = false;
-
-    /* =====================================
-       SOUND EFFECTS
-    ===================================== */
-    
-async function playTone(frequency, duration, type = "sine", volume = 0.15) {
-  if (!soundEnabled) return;
-
-  try {
-    const AudioContextClass =
-      window.AudioContext || window.webkitAudioContext;
-
-    if (!AudioContextClass) {
-      console.warn("Web Audio is not supported.");
-      return;
-    }
-
-    if (!audioContext) {
-      audioContext = new AudioContextClass();
-    }
-
-    if (audioContext.state !== "running") {
-      await audioContext.resume();
-    }
-
-    if (audioContext.state !== "running") {
-      console.warn("Audio context is not running.");
-      return;
-    }
-
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-    const now = audioContext.currentTime;
-
-    oscillator.type = type;
-    oscillator.frequency.setValueAtTime(frequency, now);
-
-    gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(volume, now + 0.02);
-    gain.gain.exponentialRampToValueAtTime(
-      0.001,
-      now + duration
-    );
-
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
-
-    oscillator.start(now);
-    oscillator.stop(now + duration + 0.02);
-
-  } catch (error) {
-    console.error("Sound playback failed:", error);
-  }
-}
-
-
-
-
-    function playRevealSound() {
-      playTone(440, 0.12, "sine", 0.07);
-
-      setTimeout(() => {
-        playTone(587, 0.15, "sine", 0.07);
-      }, 120);
-
-      setTimeout(() => {
-        playTone(740, 0.2, "sine", 0.07);
-      }, 250);
-    }
-
-    function playWinSound() {
-      [523, 659, 784, 1046].forEach((frequency, index) => {
-        setTimeout(() => {
-          playTone(frequency, 0.32, "sine", 0.09);
-        }, index * 115);
-      });
-    }
-
-    function playLoseSound() {
-      playTone(392, 0.18, "sine", 0.05);
-
-      setTimeout(() => {
-        playTone(330, 0.25, "sine", 0.05);
-      }, 170);
-    }
-    
-soundButton.addEventListener("click", async () => {
-  soundEnabled = !soundEnabled;
-
-  soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
-  soundLabel.textContent = soundEnabled ? "Sound On" : "Sound Off";
-  soundButton.setAttribute("aria-pressed", String(soundEnabled));
-
-  if (soundEnabled) {
-    await playTone(880, 0.35, "sine", 0.2);
-  }
-});
-
-
-    
-
-    /* =====================================
-       BASIC LOCAL RESULT STORAGE
-
-       IMPORTANT:
-       This stores a result only in this
-       browser. It is NOT a shared, secure
-       entry system across different devices.
-    ===================================== */
-
-    function readSavedResult() {
-      try {
-        const raw = localStorage.getItem(SETTINGS.storageKey);
-
-        if (!raw) return null;
-
-        const result = JSON.parse(raw);
-
-        if (
-          result &&
-          typeof result.won === "boolean" &&
-          typeof result.playedAt === "string"
-        ) {
-          return result;
-        }
-
-        return null;
-      } catch (error) {
-        return null;
-      }
-    }
-
-    function saveResult(result) {
-      try {
-        localStorage.setItem(
-          SETTINGS.storageKey,
-          JSON.stringify(result)
-        );
-      } catch (error) {
-        // The current result can still be shown if storage is unavailable.
-      }
-    }
-
-    /* =====================================
-       RANDOM RESULT
-
-       30% is a probability, NOT a guarantee
-       of exactly 30 winners per 100 entries.
-    ===================================== */
-
-    function getRaffleResult() {
-      return Math.random() * 100 < SETTINGS.winChancePercent;
-    }
-
-    /* =====================================
-       CONFETTI
-    ===================================== */
-
-    function launchConfetti() {
-      confettiLayer.innerHTML = "";
-
-      const colors = [
-        "#8db8f5",
-        "#c5b5f5",
-        "#f7cce4",
-        "#ffe49a",
-        "#a9e8cb",
-        "#ffffff"
-      ];
-
-      for (let i = 0; i < 85; i++) {
-        const piece = document.createElement("span");
-        piece.className = "confetti";
-
-        piece.style.left = Math.random() * 100 + "vw";
-        piece.style.backgroundColor =
-          colors[Math.floor(Math.random() * colors.length)];
-
-        piece.style.animationDuration =
-          (2.2 + Math.random() * 2.2) + "s";
-
-        piece.style.animationDelay =
-          (Math.random() * 0.6) + "s";
-
-        piece.style.setProperty(
-          "--drift",
-          (Math.random() * 180 - 90) + "px"
-        );
-
-        if (Math.random() > 0.5) {
-          piece.style.borderRadius = "50%";
-          piece.style.width = "8px";
-          piece.style.height = "8px";
-        }
-
-        confettiLayer.appendChild(piece);
-      }
-
-      setTimeout(() => {
-        confettiLayer.innerHTML = "";
-      }, 5500);
-    }
-
-    /* =====================================
-       DISPLAY RESULT
-    ===================================== */
-
-    function displayResult(result, playSound = false) {
-      resultPanel.className = "result-panel show";
-
-      if (result.won) {
-        resultPanel.classList.add("win");
-
-        resultEmoji.textContent = "🎉";
-        resultTitle.textContent = "YOU WON!";
-        resultMessage.textContent =
-          "Congratulations! ✨ Your Lucky Reveal result is a WIN!";
-
-        resultReminder.textContent =
-          "Show this screen and your eligible purchase to the SPARK ICT CLUB organizer. Your actual prize will be assigned after verification.";
-
-        resultStatus.textContent = "PENDING ORGANIZER VERIFICATION";
-
-        subtitle.textContent =
-          "A little surprise found its way to you! 💙";
-
-        if (playSound) {
-          playWinSound();
-          launchConfetti();
-        }
-      } else {
-        resultPanel.classList.add("lose");
-
-        resultEmoji.textContent = "💙";
-        resultTitle.textContent = "TRY AGAIN!";
-        resultMessage.textContent =
-          "Not this time, but thank you for joining Lucky Reveal! ✨";
-
-        resultReminder.textContent =
-          "Remember: one eligible purchase equals one entry. Keep spreading the good vibes!";
-
-        resultStatus.textContent = "RESULT RECORDED ON THIS BROWSER";
-
-        subtitle.textContent =
-          "Every reveal is a little moment of fun. ✨";
-
-        if (playSound) {
-          playLoseSound();
-        }
-      }
-
-      revealButton.disabled = true;
-      revealButton.textContent = "RESULT REVEALED ✨";
-      revealButton.setAttribute("aria-describedby", "resultPanel");
-    }
-
-    /* =====================================
-       REVEAL BUTTON
-    ===================================== */
-
-    revealButton.addEventListener("click", () => {
-      if (isRevealing || readSavedResult()) return;
-
-      isRevealing = true;
-      revealButton.disabled = true;
-      revealButton.textContent = "REVEALING YOUR RESULT... ✨";
-
-      playRevealSound();
-
-      setTimeout(() => {
-        const result = {
-          won: getRaffleResult(),
-          playedAt: new Date().toISOString()
-        };
-
-        saveResult(result);
-        displayResult(result, true);
-        isRevealing = false;
-      }, 1000);
-    });
-
-    /* =====================================
-       RESTORE RESULT AFTER REFRESH
-    ===================================== */
-
-    function initializePage() {
-      const savedResult = readSavedResult();
-
-      if (savedResult) {
-        displayResult(savedResult, false);
-      }
-    }
-
-    initializePage();
-  </script>
-</body>
-  </html>
+    .
