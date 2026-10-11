@@ -10,7 +10,7 @@
   <style>
     :root {
       --navy: #06142d;
-      --navy2: #0b2145;
+      --navy-light: #0b2145;
       --gold: #f4c653;
       --gold-light: #ffe9a0;
       --cream: #fffaf0;
@@ -26,16 +26,16 @@
     body {
       min-height: 100vh;
       min-height: 100dvh;
-      font-family: "Trebuchet MS", Arial, sans-serif;
-      color: var(--cream);
-      background:
-        radial-gradient(circle at 50% 0%, #19325c, transparent 45%),
-        linear-gradient(145deg, #030914, var(--navy) 55%, #091a35);
+      padding: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 18px;
       overflow-x: hidden;
+      color: var(--cream);
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 50% 0%, #19325c, transparent 45%),
+        linear-gradient(145deg, #030914, var(--navy) 55%, #091a35);
     }
 
     body::before {
@@ -47,20 +47,11 @@
       pointer-events: none;
     }
 
-    button {
-      font: inherit;
-    }
-
-    button:focus-visible {
-      outline: 3px solid var(--gold-light);
-      outline-offset: 4px;
-    }
-
     .stars {
       position: fixed;
       inset: 0;
-      pointer-events: none;
       overflow: hidden;
+      pointer-events: none;
     }
 
     .star {
@@ -70,80 +61,34 @@
       animation: twinkle 2.8s ease-in-out infinite alternate;
     }
 
-    .star:nth-child(1) {
-      top: 10%;
-      left: 12%;
-      font-size: 22px;
-    }
-
-    .star:nth-child(2) {
-      top: 19%;
-      right: 14%;
-      font-size: 29px;
-      animation-delay: .8s;
-    }
-
-    .star:nth-child(3) {
-      top: 73%;
-      left: 8%;
-      font-size: 25px;
-      animation-delay: 1.2s;
-    }
-
-    .star:nth-child(4) {
-      right: 10%;
-      bottom: 15%;
-      font-size: 21px;
-      animation-delay: .5s;
-    }
-
-    .star:nth-child(5) {
-      top: 47%;
-      left: 4%;
-      font-size: 15px;
-      animation-delay: 1.7s;
-    }
-
-    .star:nth-child(6) {
-      top: 43%;
-      right: 5%;
-      font-size: 17px;
-      animation-delay: .3s;
-    }
+    .star:nth-child(1) { top: 10%; left: 12%; font-size: 22px; }
+    .star:nth-child(2) { top: 19%; right: 14%; font-size: 29px; animation-delay: .8s; }
+    .star:nth-child(3) { top: 73%; left: 8%; font-size: 25px; animation-delay: 1.2s; }
+    .star:nth-child(4) { right: 10%; bottom: 15%; font-size: 21px; animation-delay: .5s; }
+    .star:nth-child(5) { top: 47%; left: 4%; font-size: 15px; animation-delay: 1.7s; }
+    .star:nth-child(6) { top: 43%; right: 5%; font-size: 17px; animation-delay: .3s; }
 
     @keyframes twinkle {
-      from {
-        opacity: .3;
-        transform: scale(.8) rotate(0deg);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1.15) rotate(18deg);
-      }
+      from { opacity: .3; transform: scale(.8) rotate(0); }
+      to { opacity: 1; transform: scale(1.15) rotate(18deg); }
     }
 
     .page {
-      width: 100%;
-      max-width: 430px;
       position: relative;
       z-index: 1;
+      width: 100%;
+      max-width: 430px;
     }
 
     .card {
       position: relative;
       overflow: hidden;
+      padding: 28px 24px 22px;
       text-align: center;
-      padding: 27px 24px 22px;
       border: 1px solid rgba(244, 198, 83, .85);
       border-radius: 24px;
-      background: linear-gradient(
-        155deg,
-        rgba(12, 31, 62, .98),
-        rgba(3, 10, 24, .99)
-      );
-      box-shadow:
-        0 24px 70px rgba(0, 0, 0, .42),
-        inset 0 0 0 5px rgba(244, 198, 83, .05);
+      background: linear-gradient(155deg, rgba(12, 31, 62, .98), rgba(3, 10, 24, .99));
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .42);
     }
 
     .card::before {
@@ -157,126 +102,94 @@
 
     .brand {
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       margin-bottom: 20px;
     }
 
     .brand-icon {
-      width: 43px;
-      height: 43px;
       display: grid;
       place-items: center;
+      width: 43px;
+      height: 43px;
       border-radius: 50%;
-      background: linear-gradient(145deg, #ffe9a0, #d79a19);
       color: #09172d;
+      background: linear-gradient(145deg, #ffe9a0, #d79a19);
       font-size: 24px;
-      box-shadow: 0 0 22px rgba(244, 198, 83, .2);
     }
 
     .brand-name {
-      font-size: 13px;
-      letter-spacing: 2.4px;
-      font-weight: 900;
       color: var(--gold-light);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 2.4px;
     }
 
     .eyebrow {
       display: inline-block;
+      margin-bottom: 12px;
       padding: 7px 14px;
       border: 1px solid rgba(244, 198, 83, .7);
       border-radius: 4px;
-      background: rgba(244, 198, 83, .08);
       color: var(--gold);
+      background: rgba(244, 198, 83, .08);
       font-size: 10px;
       font-weight: 900;
       letter-spacing: 2.2px;
-      margin-bottom: 12px;
     }
 
     .gift-wrap {
-      height: 135px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 135px;
       margin: 0 auto 8px;
     }
 
     .gift-glow {
+      position: absolute;
       width: 116px;
       height: 116px;
       border-radius: 50%;
-      position: absolute;
-      background: radial-gradient(
-        circle,
-        rgba(244, 198, 83, .22),
-        rgba(244, 198, 83, .015) 68%
-      );
-      box-shadow:
-        0 0 0 1px rgba(244, 198, 83, .2),
-        0 0 35px rgba(244, 198, 83, .12);
+      background: radial-gradient(circle, rgba(244, 198, 83, .22), transparent 68%);
+      box-shadow: 0 0 0 1px rgba(244, 198, 83, .2), 0 0 35px rgba(244, 198, 83, .12);
     }
 
     .gift {
+      position: relative;
       font-size: 78px;
       line-height: 1;
-      position: relative;
       filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .45));
       animation: floatGift 2.8s ease-in-out infinite;
     }
 
     @keyframes floatGift {
-      0%, 100% {
-        transform: translateY(0) rotate(-3deg);
-      }
-      50% {
-        transform: translateY(-8px) rotate(3deg);
-      }
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-8px) rotate(3deg); }
     }
 
     .mini-sparkle {
       position: absolute;
-      font-size: 22px;
       color: var(--gold);
-      animation: sparkle 1.8s ease-in-out infinite alternate;
+      font-size: 22px;
+      animation: twinkle 1.8s ease-in-out infinite alternate;
     }
 
-    .sparkle-one {
-      top: 19px;
-      left: 55px;
-    }
-
-    .sparkle-two {
-      right: 53px;
-      bottom: 23px;
-      animation-delay: .8s;
-    }
-
-    @keyframes sparkle {
-      from {
-        transform: scale(.7) rotate(0deg);
-        opacity: .45;
-      }
-      to {
-        transform: scale(1.2) rotate(25deg);
-        opacity: 1;
-      }
-    }
+    .sparkle-one { top: 19px; left: 55px; }
+    .sparkle-two { right: 53px; bottom: 23px; animation-delay: .8s; }
 
     h1 {
+      margin-bottom: 12px;
+      color: var(--cream);
       font-size: clamp(32px, 8vw, 43px);
+      font-weight: 900;
       line-height: 1.12;
       letter-spacing: -1.4px;
-      font-weight: 900;
-      color: var(--cream);
-      margin-bottom: 12px;
     }
 
-    h1 span {
-      color: var(--gold);
-    }
+    h1 span { color: var(--gold); }
 
     .subtitle {
       max-width: 300px;
@@ -287,60 +200,26 @@
     }
 
     .reveal-button {
+      position: relative;
+      overflow: hidden;
       width: 100%;
       min-height: 62px;
       border: 1px solid #ffe49a;
       border-radius: 9px;
       color: #07152e;
-      background: linear-gradient(
-        110deg,
-        #ffe9a0,
-        #f4c653 55%,
-        #d99d25
-      );
-      box-shadow:
-        0 5px 0 #92651a,
-        0 12px 26px rgba(0, 0, 0, .28);
+      background: linear-gradient(110deg, #ffe9a0, #f4c653 55%, #d99d25);
+      box-shadow: 0 5px 0 #92651a, 0 12px 26px rgba(0, 0, 0, .28);
+      font: inherit;
       font-size: 16px;
       font-weight: 900;
       letter-spacing: 1.1px;
       cursor: pointer;
       transition: transform .18s ease, box-shadow .18s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .reveal-button::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -110%;
-      width: 70%;
-      height: 100%;
-      background: linear-gradient(
-        100deg,
-        transparent,
-        rgba(255, 255, 255, .55),
-        transparent
-      );
-      transform: skewX(-20deg);
-      transition: left .6s ease;
-    }
-
-    .reveal-button:hover::before {
-      left: 140%;
     }
 
     .reveal-button:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow:
-        0 7px 0 #92651a,
-        0 16px 30px rgba(0, 0, 0, .35);
-    }
-
-    .reveal-button:active:not(:disabled) {
-      transform: translateY(4px);
-      box-shadow: 0 1px 0 #92651a;
+      box-shadow: 0 7px 0 #92651a, 0 16px 30px rgba(0, 0, 0, .35);
     }
 
     .reveal-button:disabled {
@@ -348,65 +227,44 @@
       opacity: .78;
     }
 
-    .button-sparkle {
-      display: inline-block;
-      margin-left: 5px;
-    }
-
     .sound-row {
       display: flex;
       justify-content: center;
-      align-items: center;
       margin-top: 19px;
     }
 
     .sound-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
+      padding: 8px 13px;
       border: 1px solid rgba(244, 198, 83, .38);
       border-radius: 5px;
+      color: #e6d9b7;
       background: rgba(255, 255, 255, .035);
-      padding: 8px 13px;
+      font: inherit;
       font-size: 11px;
       font-weight: 700;
-      color: #e6d9b7;
       cursor: pointer;
     }
 
-    .sound-button:hover {
-      background: rgba(244, 198, 83, .1);
-    }
-
     .divider {
-      width: 100%;
       height: 1px;
-      background: linear-gradient(
-        to right,
-        transparent,
-        rgba(244, 198, 83, .7),
-        transparent
-      );
       margin: 20px 0 13px;
+      background: linear-gradient(to right, transparent, rgba(244, 198, 83, .7), transparent);
     }
 
     .purchase-note {
+      color: #aeb8ca;
       font-size: 11px;
       line-height: 1.7;
-      color: #aeb8ca;
     }
 
-    .purchase-note strong {
-      color: var(--gold-light);
-    }
+    .purchase-note strong { color: var(--gold-light); }
 
     .footer {
       margin-top: 17px;
       color: var(--gold);
       font-size: 10px;
-      letter-spacing: 1.7px;
       font-weight: 900;
+      letter-spacing: 1.7px;
     }
 
     .result-panel {
@@ -414,54 +272,36 @@
       margin-top: 20px;
       padding: 20px 16px;
       border-radius: 12px;
-      animation: resultAppear .55s cubic-bezier(.2, .8, .2, 1) both;
+      animation: resultAppear .55s ease both;
     }
 
-    .result-panel.show {
-      display: block;
-    }
+    .result-panel.show { display: block; }
 
     .result-panel.win {
-      background: linear-gradient(145deg, #172e31, #0b1b2c);
       border: 1px solid #e6c45e;
-      box-shadow: inset 0 0 22px rgba(244, 198, 83, .06);
+      background: linear-gradient(145deg, #172e31, #0b1b2c);
     }
 
     .result-panel.lose {
-      background: linear-gradient(145deg, #14223b, #0b1427);
       border: 1px solid rgba(176, 190, 214, .38);
+      background: linear-gradient(145deg, #14223b, #0b1427);
     }
 
     @keyframes resultAppear {
-      from {
-        opacity: 0;
-        transform: translateY(12px) scale(.96);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      from { opacity: 0; transform: translateY(12px) scale(.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    .result-emoji {
-      font-size: 46px;
-      margin-bottom: 8px;
-    }
+    .result-emoji { margin-bottom: 8px; font-size: 46px; }
 
     .result-title {
+      margin-bottom: 8px;
       font-size: 27px;
       font-weight: 900;
-      letter-spacing: .5px;
-      margin-bottom: 8px;
     }
 
-    .win .result-title {
-      color: var(--gold);
-    }
-
-    .lose .result-title {
-      color: #d8deeb;
-    }
+    .win .result-title { color: var(--gold); }
+    .lose .result-title { color: #d8deeb; }
 
     .result-message {
       color: #e1e6ef;
@@ -470,178 +310,55 @@
     }
 
     .result-reminder {
-      font-size: 11px;
-      line-height: 1.6;
       margin-top: 12px;
       color: #b7c0d0;
+      font-size: 11px;
+      line-height: 1.6;
     }
 
     .result-status {
       display: inline-block;
+      margin-top: 13px;
+      padding: 7px 12px;
       border: 1px solid rgba(244, 198, 83, .42);
       border-radius: 4px;
-      background: rgba(244, 198, 83, .08);
-      padding: 7px 12px;
-      margin-top: 13px;
       color: var(--gold-light);
+      background: rgba(244, 198, 83, .08);
       font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .5px;
+      font-weight: 900;
+      letter-spacing: 1px;
     }
 
     .confetti-layer {
       position: fixed;
       inset: 0;
-      z-index: 10;
-      pointer-events: none;
+      z-index: 5;
       overflow: hidden;
+      pointer-events: none;
     }
 
     .confetti {
       position: absolute;
       top: -20px;
       width: 9px;
-      height: 13px;
-      border-radius: 2px;
-      animation: confettiFall linear forwards;
+      height: 14px;
+      animation: fall linear forwards;
     }
 
-    @keyframes confettiFall {
-      to {
-        transform: translate3d(var(--drift), 110vh, 0) rotate(760deg);
-        opacity: .1;
-      }
+    @keyframes fall {
+      to { transform: translate3d(var(--drift), 110vh, 0) rotate(720deg); }
     }
 
     @media (max-width: 380px) {
-      body {
-        padding: 12px;
-      }
-
-      body::before {
-        inset: 6px;
-      }
-
-      .card {
-        padding: 23px 18px 19px;
-        border-radius: 20px;
-      }
-
-      .brand {
-        margin-bottom: 15px;
-      }
-
-      .gift-wrap {
-        height: 120px;
-      }
-
-      .gift-glow {
-        width: 102px;
-        height: 102px;
-      }
-
-      .gift {
-        font-size: 68px;
-      }
-
-      .sparkle-one {
-        left: 35px;
-      }
-
-      .sparkle-two {
-        right: 34px;
-      }
-
-      h1 {
-        font-size: 34px;
-      }
-
-      .subtitle {
-        font-size: 13px;
-        margin-bottom: 17px;
-      }
-
-      .reveal-button {
-        min-height: 58px;
-        font-size: 14px;
-      }
-    }
-
-    @media (max-height: 720px) {
-      body {
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-
-      .card {
-        padding-top: 18px;
-        padding-bottom: 15px;
-      }
-
-      .brand {
-        margin-bottom: 11px;
-      }
-
-      .eyebrow {
-        margin-bottom: 7px;
-        padding: 6px 11px;
-      }
-
-      .gift-wrap {
-        height: 105px;
-        margin-bottom: 5px;
-      }
-
-      .gift-glow {
-        width: 92px;
-        height: 92px;
-      }
-
-      .gift {
-        font-size: 64px;
-      }
-
-      .sparkle-one {
-        top: 8px;
-      }
-
-      .sparkle-two {
-        bottom: 12px;
-      }
-
-      h1 {
-        margin-bottom: 8px;
-      }
-
-      .subtitle {
-        margin-bottom: 14px;
-      }
-
-      .sound-row {
-        margin-top: 14px;
-      }
-
-      .divider {
-        margin: 15px 0 10px;
-      }
-
-      .footer {
-        margin-top: 12px;
-      }
-
-      .result-panel {
-        margin-top: 14px;
-        padding: 15px 12px;
-      }
+      .card { padding: 25px 18px 20px; }
+      .brand-name { font-size: 11px; letter-spacing: 1.8px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
@@ -653,91 +370,80 @@
     <span class="star">✧</span>
     <span class="star">✦</span>
     <span class="star">✧</span>
-    <span class="star">·</span>
-    <span class="star">·</span>
+    <span class="star">✦</span>
+    <span class="star">✧</span>
   </div>
 
-  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+  <div class="confetti-layer" id="confettiLayer"></div>
 
   <main class="page">
-    <section class="card" aria-labelledby="pageTitle">
-
+    <section class="card">
       <div class="brand">
-        <div class="brand-icon" aria-hidden="true">✦</div>
+        <div class="brand-icon">✦</div>
         <div class="brand-name">SPARK ICT CLUB</div>
       </div>
 
-      <div class="eyebrow">✦ LUCKY REVEAL ✦</div>
+      <div class="eyebrow">A SPECIAL SURPRISE FOR YOU</div>
 
       <div class="gift-wrap" aria-hidden="true">
         <div class="gift-glow"></div>
-        <span class="mini-sparkle sparkle-one">✧</span>
-        <span class="gift">🎁</span>
-        <span class="mini-sparkle sparkle-two">✦</span>
+        <div class="gift">🎁</div>
+        <span class="mini-sparkle sparkle-one">✦</span>
+        <span class="mini-sparkle sparkle-two">✧</span>
       </div>
 
-      <h1 id="pageTitle">Lucky <span>Reveal!</span></h1>
+      <h1>Lucky <span>Reveal</span></h1>
 
       <p class="subtitle" id="subtitle">
-        The first 50 scans have 30 prizes hidden among them. Scan early for your chance to win! ✨
+        The first 50 scans have 30 prizes hidden among them.
+        Scan early for your chance to win!
       </p>
 
       <button class="reveal-button" id="revealButton" type="button">
-        TAP TO REVEAL <span class="button-sparkle">✨</span>
+        REVEAL MY RESULT <span>✦</span>
       </button>
 
-      <div
-        class="result-panel"
-        id="resultPanel"
-        aria-live="polite"
-        aria-atomic="true"
-      >
+      <div class="sound-row">
+        <button class="sound-button" id="soundButton" type="button" aria-pressed="true">
+          <span id="soundIcon">🔊</span>
+          <span id="soundLabel">Sound On</span>
+        </button>
+      </div>
+
+      <div class="result-panel" id="resultPanel" aria-live="polite">
         <div class="result-emoji" id="resultEmoji">🎉</div>
-        <h2 class="result-title" id="resultTitle">YOU WON!</h2>
+        <div class="result-title" id="resultTitle">YOU WON!</div>
         <p class="result-message" id="resultMessage"></p>
         <p class="result-reminder" id="resultReminder"></p>
         <div class="result-status" id="resultStatus"></div>
       </div>
 
-      <div class="sound-row">
-        <button
-          class="sound-button"
-          id="soundButton"
-          type="button"
-          aria-pressed="true"
-        >
-          <span id="soundIcon" aria-hidden="true">🔊</span>
-          <span id="soundLabel">Sound On</span>
-        </button>
-      </div>
-
       <div class="divider"></div>
 
       <p class="purchase-note">
-        <strong>30 prizes available for the first 50 scans.</strong><br>
-        One scan per eligible participant. Winners must be verified by the organizer.
+        <strong>30 PRIZES AVAILABLE</strong><br>
+        One scan per browser. Your result is saved on this device.
       </p>
 
-      <div class="footer">GOOD LUCK &amp; HAVE FUN ✦</div>
+      <div class="footer">SPARK ICT CLUB · LUCKY REVEAL</div>
     </section>
   </main>
 
   <script>
-    /* =====================================
-       LUCKY REVEAL SETTINGS
-    ===================================== */
+    /* =========================================
+       SETTINGS
+       IMPORTANT:
+       This version saves scans in the current
+       browser only. It does not synchronize
+       scan counts across different devices.
+    ========================================= */
 
     const SETTINGS = {
-      businessName: "SPARK ICT CLUB",
       totalPrizes: 30,
       eligibleScanWindow: 50,
-      storageKey: "sparkLuckyReveal_v3",
+      storageKey: "sparkLuckyReveal_one_scan_v1",
       soundEnabledByDefault: true
     };
-
-    /* =====================================
-       ELEMENTS
-    ===================================== */
 
     const revealButton = document.getElementById("revealButton");
     const subtitle = document.getElementById("subtitle");
@@ -756,15 +462,118 @@
     let audioContext = null;
     let isRevealing = false;
 
-    /* =====================================
-       SOUND EFFECTS
-    ===================================== */
+    function readState() {
+      try {
+        const raw = localStorage.getItem(SETTINGS.storageKey);
+
+        if (!raw) {
+          return {
+            scanCount: 0,
+            outcomes: [],
+            results: [],
+            browserResult: null
+          };
+        }
+
+        const state = JSON.parse(raw);
+
+        if (state && typeof state === "object") {
+          return {
+            scanCount: Number.isInteger(state.scanCount) ? state.scanCount : 0,
+            outcomes: Array.isArray(state.outcomes) ? state.outcomes : [],
+            results: Array.isArray(state.results) ? state.results : [],
+            browserResult: state.browserResult || null
+          };
+        }
+      } catch (error) {
+        console.warn("Could not read saved result.", error);
+      }
+
+      return {
+        scanCount: 0,
+        outcomes: [],
+        results: [],
+        browserResult: null
+      };
+    }
+
+    function saveState(state) {
+      try {
+        localStorage.setItem(SETTINGS.storageKey, JSON.stringify(state));
+      } catch (error) {
+        console.warn("Could not save the result in this browser.", error);
+      }
+    }
+
+    function createOutcomes() {
+      const outcomes = [
+        ...Array(SETTINGS.totalPrizes).fill(true),
+        ...Array(
+          SETTINGS.eligibleScanWindow - SETTINGS.totalPrizes
+        ).fill(false)
+      ];
+
+      // Shuffle 30 wins and 20 non-wins.
+      for (let i = outcomes.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [outcomes[i], outcomes[j]] = [outcomes[j], outcomes[i]];
+      }
+
+      return outcomes;
+    }
+
+    function getNextResult() {
+      const state = readState();
+
+      // Critical rule: this browser can receive only one result.
+      // If it already has a result, return that same result.
+      if (state.browserResult) {
+        return state.browserResult;
+      }
+
+      if (state.scanCount >= SETTINGS.eligibleScanWindow) {
+        const result = {
+          won: false,
+          scanNumber: state.scanCount + 1,
+          prizesLeft: 0,
+          playedAt: new Date().toISOString()
+        };
+
+        state.browserResult = result;
+        saveState(state);
+        return result;
+      }
+
+      if (state.outcomes.length !== SETTINGS.eligibleScanWindow) {
+        state.outcomes = createOutcomes();
+      }
+
+      const won = state.outcomes[state.scanCount];
+      state.scanCount += 1;
+
+      const previousWins = state.results.filter(item => item.won).length;
+      const result = {
+        won,
+        scanNumber: state.scanCount,
+        prizesLeft: Math.max(
+          0,
+          SETTINGS.totalPrizes - previousWins - (won ? 1 : 0)
+        ),
+        playedAt: new Date().toISOString()
+      };
+
+      state.results.push(result);
+      state.browserResult = result;
+      saveState(state);
+
+      return result;
+    }
 
     async function playTone(
       frequency,
       duration,
       type = "sine",
-      volume = 0.15
+      volume = 0.09
     ) {
       if (!soundEnabled) return;
 
@@ -790,13 +599,9 @@
 
         oscillator.type = type;
         oscillator.frequency.setValueAtTime(frequency, now);
-
         gain.gain.setValueAtTime(0.001, now);
         gain.gain.linearRampToValueAtTime(volume, now + 0.02);
-        gain.gain.exponentialRampToValueAtTime(
-          0.001,
-          now + duration
-        );
+        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
 
         oscillator.connect(gain);
         gain.connect(audioContext.destination);
@@ -810,183 +615,38 @@
 
     function playRevealSound() {
       playTone(440, 0.12, "sine", 0.07);
-
-      setTimeout(() => {
-        playTone(587, 0.15, "sine", 0.07);
-      }, 120);
-
-      setTimeout(() => {
-        playTone(740, 0.2, "sine", 0.07);
-      }, 250);
+      setTimeout(() => playTone(587, 0.15, "sine", 0.07), 120);
+      setTimeout(() => playTone(740, 0.2, "sine", 0.07), 250);
     }
 
     function playWinSound() {
       [523, 659, 784, 1046].forEach((frequency, index) => {
-        setTimeout(() => {
-          playTone(frequency, 0.32, "sine", 0.09);
-        }, index * 115);
+        setTimeout(() => playTone(frequency, 0.32, "sine", 0.09), index * 115);
       });
     }
 
     function playLoseSound() {
       playTone(392, 0.18, "sine", 0.05);
-
-      setTimeout(() => {
-        playTone(330, 0.25, "sine", 0.05);
-      }, 170);
+      setTimeout(() => playTone(330, 0.25, "sine", 0.05), 170);
     }
-
-    soundButton.addEventListener("click", async () => {
-      soundEnabled = !soundEnabled;
-
-      soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
-      soundLabel.textContent = soundEnabled ? "Sound On" : "Sound Off";
-      soundButton.setAttribute("aria-pressed", String(soundEnabled));
-
-      if (soundEnabled) {
-        await playTone(880, 0.2, "sine", 0.1);
-      }
-    });
-
-    /* =====================================
-       SCAN TRACKING AND FIXED PRIZE POOL
-       The first 50 scans contain exactly
-       30 randomly placed wins.
-    ===================================== */
-
-    function readState() {
-      try {
-        const raw = localStorage.getItem(SETTINGS.storageKey);
-
-        if (!raw) {
-          return { scanCount: 0, results: [] };
-        }
-
-        const state = JSON.parse(raw);
-
-        if (
-          state &&
-          Number.isInteger(state.scanCount) &&
-          Array.isArray(state.results)
-        ) {
-          return state;
-        }
-      } catch (error) {
-        console.warn("Could not read saved raffle state.");
-      }
-
-      return { scanCount: 0, results: [] };
-    }
-
-    function saveState(state) {
-      try {
-        localStorage.setItem(
-          SETTINGS.storageKey,
-          JSON.stringify(state)
-        );
-      } catch (error) {
-        console.warn("Could not save raffle state in this browser.");
-      }
-    }
-
-    function getNextResult() {
-      const state = readState();
-
-      if (state.scanCount >= SETTINGS.eligibleScanWindow) {
-        return {
-          won: false,
-          scanNumber: state.scanCount + 1,
-          prizesLeft: 0
-        };
-      }
-
-      /*
-        Create 30 winning entries and 20 losing entries.
-        Shuffle them so the winning positions are random.
-      */
-
-      if (
-        !Array.isArray(state.outcomes) ||
-        state.outcomes.length !== SETTINGS.eligibleScanWindow
-      ) {
-        const outcomes = [
-          ...Array(SETTINGS.totalPrizes).fill(true),
-          ...Array(
-            SETTINGS.eligibleScanWindow - SETTINGS.totalPrizes
-          ).fill(false)
-        ];
-
-        for (let i = outcomes.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-
-          [outcomes[i], outcomes[j]] =
-            [outcomes[j], outcomes[i]];
-        }
-
-        state.outcomes = outcomes;
-      }
-
-      const won = state.outcomes[state.scanCount];
-
-      state.scanCount += 1;
-
-      state.results.push({
-        won,
-        scanNumber: state.scanCount,
-        playedAt: new Date().toISOString()
-      });
-
-      const winsSoFar = state.results.filter(
-        item => item.won
-      ).length;
-
-      saveState(state);
-
-      return {
-        won,
-        scanNumber: state.scanCount,
-        prizesLeft: Math.max(
-          0,
-          SETTINGS.totalPrizes - winsSoFar
-        )
-      };
-    }
-
-    /* =====================================
-       CONFETTI
-    ===================================== */
 
     function launchConfetti() {
       confettiLayer.innerHTML = "";
 
       const colors = [
-        "#f4c653",
-        "#ffe9a0",
-        "#ffffff",
-        "#d99d25",
-        "#183866",
-        "#f7f0d8"
+        "#f4c653", "#ffe9a0", "#ffffff",
+        "#d99d25", "#183866", "#f7f0d8"
       ];
 
       for (let i = 0; i < 85; i++) {
         const piece = document.createElement("span");
-
         piece.className = "confetti";
         piece.style.left = Math.random() * 100 + "vw";
-
         piece.style.backgroundColor =
           colors[Math.floor(Math.random() * colors.length)];
-
-        piece.style.animationDuration =
-          (2.2 + Math.random() * 2.2) + "s";
-
-        piece.style.animationDelay =
-          Math.random() * 0.6 + "s";
-
-        piece.style.setProperty(
-          "--drift",
-          (Math.random() * 180 - 90) + "px"
-        );
+        piece.style.animationDuration = (2.2 + Math.random() * 2.2) + "s";
+        piece.style.animationDelay = Math.random() * 0.6 + "s";
+        piece.style.setProperty("--drift", (Math.random() * 180 - 90) + "px");
 
         if (Math.random() > 0.5) {
           piece.style.borderRadius = "50%";
@@ -1002,31 +662,20 @@
       }, 5500);
     }
 
-    /* =====================================
-       DISPLAY RESULT
-    ===================================== */
-
     function displayResult(result, playSound = false) {
       resultPanel.className = "result-panel show";
 
       if (result.won) {
         resultPanel.classList.add("win");
-
         resultEmoji.textContent = "🎉";
         resultTitle.textContent = "YOU WON!";
-
         resultMessage.textContent =
-          "Congratulations! ✨ Your Lucky Reveal result is a WIN!";
-
+          "Congratulations! Your Lucky Reveal result is a WIN!";
         resultReminder.textContent =
-          "Show this screen to the SPARK ICT CLUB organizer to claim one of the 30 available prizes. The organizer must verify your scan.";
-
+          "Show this screen to the SPARK ICT CLUB organizer to claim a prize. The organizer must verify your result.";
         resultStatus.textContent =
-          "SCAN #" + (result.scanNumber || "?") +
-          " · PENDING VERIFICATION";
-
-        subtitle.textContent =
-          "A little surprise found its way to you! ✨";
+          "SCAN #" + result.scanNumber + " · PENDING VERIFICATION";
+        subtitle.textContent = "A little surprise found its way to you!";
 
         if (playSound) {
           playWinSound();
@@ -1034,31 +683,15 @@
         }
       } else {
         resultPanel.classList.add("lose");
-
         resultEmoji.textContent = "💙";
         resultTitle.textContent = "TRY AGAIN!";
-
         resultMessage.textContent =
-          "Not this time, but thank you for joining Lucky Reveal! ✨";
-
+          "Not this time, but thank you for joining Lucky Reveal!";
         resultReminder.textContent =
-          result.scanNumber &&
-          result.scanNumber > SETTINGS.eligibleScanWindow
-            ? "The first " + SETTINGS.eligibleScanWindow +
-              " scans have ended. Thank you for participating!"
-            : "Thank you for participating! Keep supporting SPARK ICT CLUB.";
-
-        resultStatus.textContent = result.scanNumber
-          ? "SCAN #" + result.scanNumber + " · " +
-            (
-              result.scanNumber > SETTINGS.eligibleScanWindow
-                ? "PROMOTION ENDED"
-                : "NO PRIZE THIS TIME"
-            )
-          : "RESULT RECORDED";
-
-        subtitle.textContent =
-          "Every reveal is a little moment of fun. ✨";
+          "Thank you for participating and supporting SPARK ICT CLUB.";
+        resultStatus.textContent =
+          "SCAN #" + result.scanNumber + " · NO PRIZE THIS TIME";
+        subtitle.textContent = "Every reveal is a little moment of fun.";
 
         if (playSound) {
           playLoseSound();
@@ -1066,39 +699,43 @@
       }
 
       revealButton.disabled = true;
-      revealButton.textContent = "RESULT REVEALED ✨";
-
-      revealButton.setAttribute(
-        "aria-describedby",
-        "resultPanel"
-      );
+      revealButton.textContent = "RESULT ALREADY REVEALED";
+      revealButton.setAttribute("aria-describedby", "resultPanel");
     }
 
-    /* =====================================
-       REVEAL BUTTON
-    ===================================== */
+    soundButton.addEventListener("click", async () => {
+      soundEnabled = !soundEnabled;
+      soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
+      soundLabel.textContent = soundEnabled ? "Sound On" : "Sound Off";
+      soundButton.setAttribute("aria-pressed", String(soundEnabled));
+
+      if (soundEnabled) {
+        await playTone(880, 0.2, "sine", 0.1);
+      }
+    });
 
     revealButton.addEventListener("click", () => {
-      if (isRevealing) return;
+      if (isRevealing || readState().browserResult) return;
 
       isRevealing = true;
       revealButton.disabled = true;
-      revealButton.textContent = "REVEALING YOUR RESULT... ✨";
-
+      revealButton.textContent = "REVEALING YOUR RESULT...";
       playRevealSound();
 
       setTimeout(() => {
         const result = getNextResult();
-
         displayResult(result, true);
-
         isRevealing = false;
       }, 1000);
     });
 
     function initializePage() {
-      // Raffle state is stored in this browser.
-      // This is not a shared counter across different devices.
+      // If a result was saved before, show it and block another scan.
+      const state = readState();
+
+      if (state.browserResult) {
+        displayResult(state.browserResult, false);
+      }
     }
 
     initializePage();
