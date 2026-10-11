@@ -1,19 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#dfeaff">
+  <meta name="theme-color" content="#06142d">
   <title>Lucky Reveal | SPARK ICT CLUB</title>
 
   <style>
     :root {
-      --blue: #8db8f5;
-      --lavender: #c5b5f5;
-      --pink: #f7cce4;
-      --text: #424766;
-      --muted: #777e9e;
-      --shadow: 0 18px 50px rgba(103, 119, 180, 0.18);
+      --navy: #06142d;
+      --navy2: #0b2145;
+      --gold: #f4c653;
+      --gold-light: #ffe9a0;
+      --cream: #fffaf0;
+      --muted: #c2c9d8;
     }
 
     * {
@@ -26,17 +27,24 @@
       min-height: 100vh;
       min-height: 100dvh;
       font-family: "Trebuchet MS", Arial, sans-serif;
-      color: var(--text);
+      color: var(--cream);
       background:
-        radial-gradient(circle at 12% 15%, #fff 0, transparent 23%),
-        radial-gradient(circle at 90% 85%, #f8dff1 0, transparent 25%),
-        linear-gradient(140deg, #dff0ff, #e9e3ff 48%, #fce8f5);
+        radial-gradient(circle at 50% 0%, #19325c, transparent 45%),
+        linear-gradient(145deg, #030914, var(--navy) 55%, #091a35);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 18px;
       overflow-x: hidden;
-      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 10px;
+      border: 1px solid rgba(244, 198, 83, .55);
+      border-radius: 18px;
+      pointer-events: none;
     }
 
     button {
@@ -44,7 +52,7 @@
     }
 
     button:focus-visible {
-      outline: 3px solid #547fc8;
+      outline: 3px solid var(--gold-light);
       outline-offset: 4px;
     }
 
@@ -53,15 +61,13 @@
       inset: 0;
       pointer-events: none;
       overflow: hidden;
-      z-index: 0;
     }
 
     .star {
       position: absolute;
-      color: white;
-      opacity: 0.8;
+      color: var(--gold-light);
+      text-shadow: 0 0 14px rgba(244, 198, 83, .7);
       animation: twinkle 2.8s ease-in-out infinite alternate;
-      text-shadow: 0 0 12px rgba(255,255,255,.9);
     }
 
     .star:nth-child(1) {
@@ -107,7 +113,7 @@
 
     @keyframes twinkle {
       from {
-        opacity: .35;
+        opacity: .3;
         transform: scale(.8) rotate(0deg);
       }
       to {
@@ -127,77 +133,70 @@
       position: relative;
       overflow: hidden;
       text-align: center;
-      padding: 28px 24px 22px;
-      border: 1px solid rgba(255,255,255,.85);
-      border-radius: 30px;
-      background: rgba(255,255,255,.83);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-    }
-
-    .card::before,
-    .card::after {
-      content: "";
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: -1;
+      padding: 27px 24px 22px;
+      border: 1px solid rgba(244, 198, 83, .85);
+      border-radius: 24px;
+      background: linear-gradient(
+        155deg,
+        rgba(12, 31, 62, .98),
+        rgba(3, 10, 24, .99)
+      );
+      box-shadow:
+        0 24px 70px rgba(0, 0, 0, .42),
+        inset 0 0 0 5px rgba(244, 198, 83, .05);
     }
 
     .card::before {
-      background: rgba(197,181,245,.25);
-      top: -90px;
-      left: -65px;
-    }
-
-    .card::after {
-      background: rgba(141,184,245,.23);
-      right: -80px;
-      bottom: -90px;
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border: 1px solid rgba(244, 198, 83, .2);
+      border-radius: 17px;
+      pointer-events: none;
     }
 
     .brand {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       margin-bottom: 20px;
     }
 
     .brand-icon {
-      width: 34px;
-      height: 34px;
+      width: 43px;
+      height: 43px;
       display: grid;
       place-items: center;
       border-radius: 50%;
-      background: linear-gradient(135deg, #dceaff, #e8ddff);
-      font-size: 18px;
+      background: linear-gradient(145deg, #ffe9a0, #d79a19);
+      color: #09172d;
+      font-size: 24px;
+      box-shadow: 0 0 22px rgba(244, 198, 83, .2);
     }
 
     .brand-name {
-      font-size: 12px;
-      letter-spacing: 2px;
-      font-weight: 800;
-      color: #6b77a6;
+      font-size: 13px;
+      letter-spacing: 2.4px;
+      font-weight: 900;
+      color: var(--gold-light);
     }
 
     .eyebrow {
       display: inline-block;
-      padding: 7px 13px;
-      border-radius: 30px;
-      background: #f0eaff;
-      color: #8571c3;
+      padding: 7px 14px;
+      border: 1px solid rgba(244, 198, 83, .7);
+      border-radius: 4px;
+      background: rgba(244, 198, 83, .08);
+      color: var(--gold);
       font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 2px;
+      font-weight: 900;
+      letter-spacing: 2.2px;
       margin-bottom: 12px;
     }
 
     .gift-wrap {
-      height: 145px;
+      height: 135px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -206,19 +205,25 @@
     }
 
     .gift-glow {
-      width: 125px;
-      height: 125px;
+      width: 116px;
+      height: 116px;
       border-radius: 50%;
       position: absolute;
-      background: linear-gradient(135deg, #e0edff, #f0e3ff);
-      box-shadow: 0 0 0 12px rgba(231,232,255,.32);
+      background: radial-gradient(
+        circle,
+        rgba(244, 198, 83, .22),
+        rgba(244, 198, 83, .015) 68%
+      );
+      box-shadow:
+        0 0 0 1px rgba(244, 198, 83, .2),
+        0 0 35px rgba(244, 198, 83, .12);
     }
 
     .gift {
-      font-size: 83px;
+      font-size: 78px;
       line-height: 1;
       position: relative;
-      filter: drop-shadow(0 9px 8px rgba(94,112,174,.17));
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .45));
       animation: floatGift 2.8s ease-in-out infinite;
     }
 
@@ -227,14 +232,14 @@
         transform: translateY(0) rotate(-3deg);
       }
       50% {
-        transform: translateY(-9px) rotate(3deg);
+        transform: translateY(-8px) rotate(3deg);
       }
     }
 
     .mini-sparkle {
       position: absolute;
       font-size: 22px;
-      color: #b49be9;
+      color: var(--gold);
       animation: sparkle 1.8s ease-in-out infinite alternate;
     }
 
@@ -252,7 +257,7 @@
     @keyframes sparkle {
       from {
         transform: scale(.7) rotate(0deg);
-        opacity: .5;
+        opacity: .45;
       }
       to {
         transform: scale(1.2) rotate(25deg);
@@ -263,14 +268,14 @@
     h1 {
       font-size: clamp(32px, 8vw, 43px);
       line-height: 1.12;
-      letter-spacing: -1.6px;
+      letter-spacing: -1.4px;
       font-weight: 900;
-      color: #535c91;
+      color: var(--cream);
       margin-bottom: 12px;
     }
 
     h1 span {
-      color: #8e79d0;
+      color: var(--gold);
     }
 
     .subtitle {
@@ -284,12 +289,18 @@
     .reveal-button {
       width: 100%;
       min-height: 62px;
-      border: none;
-      border-radius: 19px;
-      color: white;
-      background: linear-gradient(110deg, #7eabef, #a28be8 58%, #bd9ee9);
-      box-shadow: 0 9px 0 #d7d1f1,
-                  0 15px 25px rgba(121,125,201,.22);
+      border: 1px solid #ffe49a;
+      border-radius: 9px;
+      color: #07152e;
+      background: linear-gradient(
+        110deg,
+        #ffe9a0,
+        #f4c653 55%,
+        #d99d25
+      );
+      box-shadow:
+        0 5px 0 #92651a,
+        0 12px 26px rgba(0, 0, 0, .28);
       font-size: 16px;
       font-weight: 900;
       letter-spacing: 1.1px;
@@ -309,7 +320,7 @@
       background: linear-gradient(
         100deg,
         transparent,
-        rgba(255,255,255,.3),
+        rgba(255, 255, 255, .55),
         transparent
       );
       transform: skewX(-20deg);
@@ -322,18 +333,19 @@
 
     .reveal-button:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 11px 0 #d7d1f1,
-                  0 18px 28px rgba(121,125,201,.25);
+      box-shadow:
+        0 7px 0 #92651a,
+        0 16px 30px rgba(0, 0, 0, .35);
     }
 
     .reveal-button:active:not(:disabled) {
-      transform: translateY(5px);
-      box-shadow: 0 4px 0 #d7d1f1;
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 #92651a;
     }
 
     .reveal-button:disabled {
       cursor: default;
-      opacity: .75;
+      opacity: .78;
     }
 
     .button-sparkle {
@@ -353,51 +365,56 @@
       align-items: center;
       justify-content: center;
       gap: 7px;
-      border: 1px solid #e4e2f6;
-      border-radius: 30px;
-      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(244, 198, 83, .38);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, .035);
       padding: 8px 13px;
       font-size: 11px;
       font-weight: 700;
-      color: #77759f;
+      color: #e6d9b7;
       cursor: pointer;
     }
 
     .sound-button:hover {
-      background: #f2efff;
+      background: rgba(244, 198, 83, .1);
     }
 
     .divider {
       width: 100%;
       height: 1px;
-      background: linear-gradient(to right, transparent, #e7e5f5, transparent);
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(244, 198, 83, .7),
+        transparent
+      );
       margin: 20px 0 13px;
     }
 
     .purchase-note {
       font-size: 11px;
-      line-height: 1.6;
-      color: #8a8eaa;
+      line-height: 1.7;
+      color: #aeb8ca;
     }
 
     .purchase-note strong {
-      color: #7774a7;
+      color: var(--gold-light);
     }
 
     .footer {
       margin-top: 17px;
-      color: #8e8fb0;
+      color: var(--gold);
       font-size: 10px;
-      letter-spacing: 1.4px;
-      font-weight: 800;
+      letter-spacing: 1.7px;
+      font-weight: 900;
     }
 
     .result-panel {
       display: none;
       margin-top: 20px;
       padding: 20px 16px;
-      border-radius: 22px;
-      animation: resultAppear .55s cubic-bezier(.2,.8,.2,1) both;
+      border-radius: 12px;
+      animation: resultAppear .55s cubic-bezier(.2, .8, .2, 1) both;
     }
 
     .result-panel.show {
@@ -405,13 +422,14 @@
     }
 
     .result-panel.win {
-      background: linear-gradient(140deg, #e4f8ec, #edf7ff);
-      border: 1px solid #ccebd8;
+      background: linear-gradient(145deg, #172e31, #0b1b2c);
+      border: 1px solid #e6c45e;
+      box-shadow: inset 0 0 22px rgba(244, 198, 83, .06);
     }
 
     .result-panel.lose {
-      background: linear-gradient(140deg, #f0ebff, #fdf0f7);
-      border: 1px solid #e4dafa;
+      background: linear-gradient(145deg, #14223b, #0b1427);
+      border: 1px solid rgba(176, 190, 214, .38);
     }
 
     @keyframes resultAppear {
@@ -438,15 +456,15 @@
     }
 
     .win .result-title {
-      color: #358a63;
+      color: var(--gold);
     }
 
     .lose .result-title {
-      color: #8270bb;
+      color: #d8deeb;
     }
 
     .result-message {
-      color: #626985;
+      color: #e1e6ef;
       font-size: 13px;
       line-height: 1.7;
     }
@@ -455,16 +473,17 @@
       font-size: 11px;
       line-height: 1.6;
       margin-top: 12px;
-      color: #8185a0;
+      color: #b7c0d0;
     }
 
     .result-status {
       display: inline-block;
-      border-radius: 20px;
-      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(244, 198, 83, .42);
+      border-radius: 4px;
+      background: rgba(244, 198, 83, .08);
       padding: 7px 12px;
       margin-top: 13px;
-      color: #77759e;
+      color: var(--gold-light);
       font-size: 10px;
       font-weight: 800;
       letter-spacing: .5px;
@@ -494,25 +513,18 @@
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-      }
-    }
-
     @media (max-width: 380px) {
       body {
         padding: 12px;
       }
 
+      body::before {
+        inset: 6px;
+      }
+
       .card {
         padding: 23px 18px 19px;
-        border-radius: 25px;
+        border-radius: 20px;
       }
 
       .brand {
@@ -520,16 +532,16 @@
       }
 
       .gift-wrap {
-        height: 125px;
+        height: 120px;
       }
 
       .gift-glow {
-        width: 108px;
-        height: 108px;
+        width: 102px;
+        height: 102px;
       }
 
       .gift {
-        font-size: 72px;
+        font-size: 68px;
       }
 
       .sparkle-one {
@@ -622,6 +634,16 @@
         padding: 15px 12px;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
   </style>
 </head>
 
@@ -645,7 +667,7 @@
         <div class="brand-name">SPARK ICT CLUB</div>
       </div>
 
-      <div class="eyebrow">✦ A LITTLE SURPRISE ✦</div>
+      <div class="eyebrow">✦ LUCKY REVEAL ✦</div>
 
       <div class="gift-wrap" aria-hidden="true">
         <div class="gift-glow"></div>
@@ -664,7 +686,12 @@
         TAP TO REVEAL <span class="button-sparkle">✨</span>
       </button>
 
-      <div class="result-panel" id="resultPanel" aria-live="polite" aria-atomic="true">
+      <div
+        class="result-panel"
+        id="resultPanel"
+        aria-live="polite"
+        aria-atomic="true"
+      >
         <div class="result-emoji" id="resultEmoji">🎉</div>
         <h2 class="result-title" id="resultTitle">YOU WON!</h2>
         <p class="result-message" id="resultMessage"></p>
@@ -691,7 +718,7 @@
         Winning results must be verified by the organizer.
       </p>
 
-      <div class="footer">GOOD LUCK &amp; HAVE FUN ♡</div>
+      <div class="footer">GOOD LUCK &amp; HAVE FUN ✦</div>
     </section>
   </main>
 
@@ -823,9 +850,8 @@
     /* =====================================
        SAVE AND RESTORE RESULT
 
-       IMPORTANT:
-       localStorage only works in the
-       current browser on the current device.
+       This saves results only in the current
+       browser on the current device.
     ===================================== */
 
     function readSavedResult() {
@@ -864,8 +890,8 @@
     /* =====================================
        RANDOM RESULT
 
-       60% probability per entry.
-       No fixed winner limit.
+       60% chance per entry.
+       There is no fixed winner limit.
     ===================================== */
 
     function getRaffleResult() {
@@ -880,12 +906,12 @@
       confettiLayer.innerHTML = "";
 
       const colors = [
-        "#8db8f5",
-        "#c5b5f5",
-        "#f7cce4",
-        "#ffe49a",
-        "#a9e8cb",
-        "#ffffff"
+        "#f4c653",
+        "#ffe9a0",
+        "#ffffff",
+        "#d99d25",
+        "#183866",
+        "#f7f0d8"
       ];
 
       for (let i = 0; i < 85; i++) {
@@ -943,7 +969,7 @@
         resultStatus.textContent = "PENDING ORGANIZER VERIFICATION";
 
         subtitle.textContent =
-          "A little surprise found its way to you! 💙";
+          "A little surprise found its way to you! ✨";
 
         if (playSound) {
           playWinSound();
