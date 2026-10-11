@@ -679,7 +679,7 @@
       <h1 id="pageTitle">Lucky <span>Reveal!</span></h1>
 
       <p class="subtitle" id="subtitle">
-        Are you ready? A little surprise might be waiting for you. ✨
+        The first 50 scans have 30 prizes hidden among them. Scan early for your chance to win! ✨
       </p>
 
       <button class="reveal-button" id="revealButton" type="button">
@@ -714,8 +714,8 @@
       <div class="divider"></div>
 
       <p class="purchase-note">
-        <strong>One eligible purchase = one entry.</strong><br>
-        Winning results must be verified by the organizer.
+        <strong>30 prizes available for the first 50 scans.</strong><br>
+        One scan per eligible participant. Winners must be verified by the organizer.
       </p>
 
       <div class="footer">GOOD LUCK &amp; HAVE FUN ✦</div>
@@ -729,8 +729,9 @@
 
     const SETTINGS = {
       businessName: "SPARK ICT CLUB",
-      winChancePercent: 60,
-      storageKey: "sparkLuckyReveal_v2",
+      totalPrizes: 30,
+      eligibleScanWindow: 50,
+      storageKey: "sparkLuckyReveal_v3",
       soundEnabledByDefault: true
     };
 
@@ -848,54 +849,107 @@
     });
 
     /* =====================================
-       SAVE AND RESTORE RESULT
-
-       This saves results only in the current
-       browser on the current device.
+       SCAN TRACKING AND FIXED PRIZE POOL
+       The first 50 scans contain exactly
+       30 randomly placed wins.
     ===================================== */
 
-    function readSavedResult() {
+    function readState() {
       try {
         const raw = localStorage.getItem(SETTINGS.storageKey);
 
-        if (!raw) return null;
-
-        const result = JSON.parse(raw);
-
-        if (
-          result &&
-          typeof result.won === "boolean" &&
-          typeof result.playedAt === "string"
-        ) {
-          return result;
+        if (!raw) {
+          return { scanCount: 0, results: [] };
         }
 
-        return null;
+        const state = JSON.parse(raw);
+
+        if (
+          state &&
+          Number.isInteger(state.scanCount) &&
+          Array.isArray(state.results)
+        ) {
+          return state;
+        }
       } catch (error) {
-        return null;
+        console.warn("Could not read saved raffle state.");
       }
+
+      return { scanCount: 0, results: [] };
     }
 
-    function saveResult(result) {
+    function saveState(state) {
       try {
         localStorage.setItem(
           SETTINGS.storageKey,
-          JSON.stringify(result)
+          JSON.stringify(state)
         );
       } catch (error) {
-        console.warn("Could not save the result in this browser.");
+        console.warn("Could not save raffle state in this browser.");
       }
     }
 
-    /* =====================================
-       RANDOM RESULT
+    function getNextResult() {
+      const state = readState();
 
-       60% chance per entry.
-       There is no fixed winner limit.
-    ===================================== */
+      if (state.scanCount >= SETTINGS.eligibleScanWindow) {
+        return {
+          won: false,
+          scanNumber: state.scanCount + 1,
+          prizesLeft: 0
+        };
+      }
 
-    function getRaffleResult() {
-      return Math.random() * 100 < SETTINGS.winChancePercent;
+      /*
+        Create 30 winning entries and 20 losing entries.
+        Shuffle them so the winning positions are random.
+      */
+
+      if (
+        !Array.isArray(state.outcomes) ||
+        state.outcomes.length !== SETTINGS.eligibleScanWindow
+      ) {
+        const outcomes = [
+          ...Array(SETTINGS.totalPrizes).fill(true),
+          ...Array(
+            SETTINGS.eligibleScanWindow - SETTINGS.totalPrizes
+          ).fill(false)
+        ];
+
+        for (let i = outcomes.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+
+          [outcomes[i], outcomes[j]] =
+            [outcomes[j], outcomes[i]];
+        }
+
+        state.outcomes = outcomes;
+      }
+
+      const won = state.outcomes[state.scanCount];
+
+      state.scanCount += 1;
+
+      state.results.push({
+        won,
+        scanNumber: state.scanCount,
+        playedAt: new Date().toISOString()
+      });
+
+      const winsSoFar = state.results.filter(
+        item => item.won
+      ).length;
+
+      saveState(state);
+
+      return {
+        won,
+        scanNumber: state.scanCount,
+        prizesLeft: Math.max(
+          0,
+          SETTINGS.totalPrizes - winsSoFar
+        )
+      };
     }
 
     /* =====================================
@@ -916,9 +970,10 @@
 
       for (let i = 0; i < 85; i++) {
         const piece = document.createElement("span");
-        piece.className = "confetti";
 
+        piece.className = "confetti";
         piece.style.left = Math.random() * 100 + "vw";
+
         piece.style.backgroundColor =
           colors[Math.floor(Math.random() * colors.length)];
 
@@ -964,9 +1019,11 @@
           "Congratulations! ✨ Your Lucky Reveal result is a WIN!";
 
         resultReminder.textContent =
-          "Show this screen and your eligible purchase to the SPARK ICT CLUB organizer. Your actual prize will be assigned after verification.";
+          "Show this screen to the SPARK ICT CLUB organizer to claim one of the 30 available prizes. The organizer must verify your scan.";
 
-        resultStatus.textContent = "PENDING ORGANIZER VERIFICATION";
+        resultStatus.textContent =
+          "SCAN #" + (result.scanNumber || "?") +
+          " · PENDING VERIFICATION";
 
         subtitle.textContent =
           "A little surprise found its way to you! ✨";
@@ -985,9 +1042,20 @@
           "Not this time, but thank you for joining Lucky Reveal! ✨";
 
         resultReminder.textContent =
-          "Thank you for supporting our participating student businesses!";
+          result.scanNumber &&
+          result.scanNumber > SETTINGS.eligibleScanWindow
+            ? "The first " + SETTINGS.eligibleScanWindow +
+              " scans have ended. Thank you for participating!"
+            : "Thank you for participating! Keep supporting SPARK ICT CLUB.";
 
-        resultStatus.textContent = "RESULT RECORDED ON THIS BROWSER";
+        resultStatus.textContent = result.scanNumber
+          ? "SCAN #" + result.scanNumber + " · " +
+            (
+              result.scanNumber > SETTINGS.eligibleScanWindow
+                ? "PROMOTION ENDED"
+                : "NO PRIZE THIS TIME"
+            )
+          : "RESULT RECORDED";
 
         subtitle.textContent =
           "Every reveal is a little moment of fun. ✨";
@@ -999,7 +1067,11 @@
 
       revealButton.disabled = true;
       revealButton.textContent = "RESULT REVEALED ✨";
-      revealButton.setAttribute("aria-describedby", "resultPanel");
+
+      revealButton.setAttribute(
+        "aria-describedby",
+        "resultPanel"
+      );
     }
 
     /* =====================================
@@ -1007,7 +1079,7 @@
     ===================================== */
 
     revealButton.addEventListener("click", () => {
-      if (isRevealing || readSavedResult()) return;
+      if (isRevealing) return;
 
       isRevealing = true;
       revealButton.disabled = true;
@@ -1016,27 +1088,17 @@
       playRevealSound();
 
       setTimeout(() => {
-        const result = {
-          won: getRaffleResult(),
-          playedAt: new Date().toISOString()
-        };
+        const result = getNextResult();
 
-        saveResult(result);
         displayResult(result, true);
+
         isRevealing = false;
       }, 1000);
     });
 
-    /* =====================================
-       RESTORE RESULT AFTER REFRESH
-    ===================================== */
-
     function initializePage() {
-      const savedResult = readSavedResult();
-
-      if (savedResult) {
-        displayResult(savedResult, false);
-      }
+      // Raffle state is stored in this browser.
+      // This is not a shared counter across different devices.
     }
 
     initializePage();
