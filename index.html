@@ -395,8 +395,8 @@
       <h1>Lucky <span>Reveal</span></h1>
 
       <p class="subtitle" id="subtitle">
-        The first 50 purchasers have 30 prizes hidden among them.
-        Buy now and scan early for your chance to win!
+        Buy a product from SPARK ICT CLUB and reveal your lucky result!
+        Open this page again anytime to check your saved result.
       </p>
 
       <button class="reveal-button" id="revealButton" type="button">
@@ -422,7 +422,7 @@
 
       <p class="purchase-note">
         <strong>30 PRIZES AVAILABLE</strong><br>
-        One scan per browser. Your result is saved on this device.
+        One result per browser. Your result is saved on this device.
       </p>
 
       <div class="footer">SPARK ICT CLUB · LUCKY REVEAL</div>
@@ -432,15 +432,16 @@
   <script>
     /* =========================================
        SETTINGS
-       IMPORTANT:
-       This version saves scans in the current
-       browser only. It does not synchronize
-       scan counts across different devices.
+       This standalone version saves one result
+       in each browser's local storage. It does
+       not synchronize results across devices.
+       IMPORTANT: without a shared server/database,
+       this cannot guarantee only 30 winners total.
     ========================================= */
 
     const SETTINGS = {
       totalPrizes: 30,
-      eligibleScanWindow: 50,
+      winChance: 0.60,
       storageKey: "sparkLuckyReveal_one_scan_v1",
       soundEnabledByDefault: true
     };
@@ -505,67 +506,29 @@
       }
     }
 
-    function createOutcomes() {
-      const outcomes = [
-        ...Array(SETTINGS.totalPrizes).fill(true),
-        ...Array(
-          SETTINGS.eligibleScanWindow - SETTINGS.totalPrizes
-        ).fill(false)
-      ];
-
-      // Shuffle 30 wins and 20 non-wins.
-      for (let i = outcomes.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [outcomes[i], outcomes[j]] = [outcomes[j], outcomes[i]];
-      }
-
-      return outcomes;
-    }
-
     function getNextResult() {
       const state = readState();
 
-      // Critical rule: this browser can receive only one result.
-      // If it already has a result, return that same result.
+      // A browser/device receives only one result.
+      // Reopening or rescanning the QR shows the saved result.
       if (state.browserResult) {
         return state.browserResult;
       }
 
-      if (state.scanCount >= SETTINGS.eligibleScanWindow) {
-        const result = {
-          won: false,
-          scanNumber: state.scanCount + 1,
-          prizesLeft: 0,
-          playedAt: new Date().toISOString()
-        };
-
-        state.browserResult = result;
-        saveState(state);
-        return result;
-      }
-
-      if (state.outcomes.length !== SETTINGS.eligibleScanWindow) {
-        state.outcomes = createOutcomes();
-      }
-
-      const won = state.outcomes[state.scanCount];
-      state.scanCount += 1;
-
-      const previousWins = state.results.filter(item => item.won).length;
+      // No 50-scan limit: a new browser can reveal a result
+      // regardless of how many times the QR page is opened.
+      const won = Math.random() < SETTINGS.winChance;
       const result = {
         won,
-        scanNumber: state.scanCount,
-        prizesLeft: Math.max(
-          0,
-          SETTINGS.totalPrizes - previousWins - (won ? 1 : 0)
-        ),
+        scanNumber: 1,
+        prizesLeft: null,
         playedAt: new Date().toISOString()
       };
 
-      state.results.push(result);
+      state.scanCount = 1;
       state.browserResult = result;
+      state.results = [result];
       saveState(state);
-
       return result;
     }
 
@@ -674,7 +637,7 @@
         resultReminder.textContent =
           "Show this screen to the SPARK ICT CLUB organizer to claim a prize. The organizer must verify your result.";
         resultStatus.textContent =
-          "SCAN #" + result.scanNumber + " · PENDING VERIFICATION";
+          "PENDING VERIFICATION · SHOW THIS RESULT TO THE ORGANIZER";
         subtitle.textContent = "A little surprise found its way to you!";
 
         if (playSound) {
@@ -690,7 +653,7 @@
         resultReminder.textContent =
           "Thank you for participating and supporting SPARK ICT CLUB.";
         resultStatus.textContent =
-          "SCAN #" + result.scanNumber + " · NO PRIZE THIS TIME";
+          "NO PRIZE THIS TIME";
         subtitle.textContent = "Every reveal is a little moment of fun.";
 
         if (playSound) {
